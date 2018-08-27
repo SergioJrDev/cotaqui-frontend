@@ -61,6 +61,9 @@ const headerLinksStyle = theme => ({
       "& > span:first-child": {
         justifyContent: "flex-start"
       }
+    },
+    [theme.breakpoints.up("md")]: {
+      color: "#fff"
     }
   },
   notificationNavLink: {

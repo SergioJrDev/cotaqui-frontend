@@ -2,6 +2,7 @@
 import React from "react";
 // react components for routing our app without refresh
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -23,22 +24,14 @@ function HeaderLinks({ ...props }) {
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
-        <Button
-          href="/cartas-contempladas"
-          color="transparent"
-          className={classes.navLink}
-        >
+        <NavLink className={classes.navLink} to="/cartas-contempladas">
           Comprar cotas de Imóveis
-        </Button>
+        </NavLink>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          href="/cartas-contempladas"
-          color="transparent"
-          className={classes.navLink}
-        >
+        <NavLink className={classes.navLink} to="/cartas-contempladas">
           Comprar cotas de Veículos
-        </Button>
+        </NavLink>
       </ListItem>
     </List>
   );

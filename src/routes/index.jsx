@@ -10,7 +10,7 @@ var indexRoutes = [
   { path: "/landing-page", name: "LandingPage", component: LandingPage },
   { path: "/profile-page", name: "ProfilePage", component: ProfilePage },
   { path: "/login-page", name: "LoginPage", component: LoginPage },
-  { path: "/cartas-contempladas", name: "Cotas", component: Cartas },
+  { path: "/cartas-contempladas", name: "CartasContempladas", component: Cartas },
   { path: "/style-guide", name: "Style Guide", component: Components },
   {
     path: "/cartas-contempladas/:id",
