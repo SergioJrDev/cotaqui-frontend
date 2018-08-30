@@ -13,6 +13,7 @@ import "assets/scss/material-kit-react.css?v=1.2.0";
 import Home from "views/Home/Home";
 import Cartas from "views/Cotas/Cotas";
 import SingleCotas from "views/SingleCota/SingleCota";
+import Dashboard from "./admin/routes";
 
 var hist = createBrowserHistory();
 
@@ -22,6 +23,7 @@ ReactDOM.render(
       <Route exact path="/" component={Home} />
       <Route exact path="/cartas-contempladas/:id" component={SingleCotas} />
       <Route exact path="/cartas-contempladas" component={Cartas} />
+      <Route exact path="/admin" component={Dashboard} />
       <Redirect to="/" />
     </Switch>
   </Router>,
