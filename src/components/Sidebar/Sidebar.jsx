@@ -11,15 +11,17 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
+// core components
+import HeaderLinks from "components/Header/HeaderLinks.jsx";
 
-import sidebarStyle from "./../../assets/jss/material-dashboard-react/components/sidebarStyle.jsx";
+import sidebarStyle from "assets/jss/material-dashboard-react/components/sidebarStyle.jsx";
 
 const Sidebar = ({ ...props }) => {
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return props.location.pathname.indexOf(routeName) > -1 ? true : false;
   }
-  const { classes, color, image, logoText, routes } = props;
+  const { classes, color, logo, image, logoText, routes } = props;
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -67,9 +69,12 @@ const Sidebar = ({ ...props }) => {
   );
   var brand = (
     <div className={classes.logo}>
-      <NavLink to="admin" className={classes.logoLink}>
-        <div className={classes.logoImage}>{logoText}</div>
-      </NavLink>
+      <a href="https://www.creative-tim.com" className={classes.logoLink}>
+        <div className={classes.logoImage}>
+          <img src={logo} alt="logo" className={classes.img} />
+        </div>
+        {logoText}
+      </a>
     </div>
   );
   return (
@@ -88,7 +93,10 @@ const Sidebar = ({ ...props }) => {
           }}
         >
           {brand}
-          <div className={classes.sidebarWrapper}>{links}</div>
+          <div className={classes.sidebarWrapper}>
+            <HeaderLinks />
+            {links}
+          </div>
           {image !== undefined ? (
             <div
               className={classes.background}
