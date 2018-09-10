@@ -19,15 +19,15 @@ const dashboardRoutes = [
   },
   {
     path: "/user",
-    sidebarName: "User Profile",
-    navbarName: "Profile",
+    sidebarName: "Criar carta",
+    navbarName: "Criar carta",
     icon: Person,
     component: UserProfile
   },
   {
     path: "/table",
-    sidebarName: "Table List",
-    navbarName: "Table List",
+    sidebarName: "Lista de cartas",
+    navbarName: "Lista de cartas",
     icon: "content_paste",
     component: TableList
   },
