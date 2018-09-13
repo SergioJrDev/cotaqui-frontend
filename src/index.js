@@ -17,6 +17,8 @@ import SingleCotas from "views/SingleCota/SingleCota";
 
 import Admin from "./admin/layouts/Dashboard/Dashboard";
 
+import Dashboard from "./admin/views/UserProfile/UserProfile";
+
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -27,6 +29,7 @@ ReactDOM.render(
       <Route exact path="/cartas-contempladas" component={Cartas} />
       <Route exact path="/dashboard" component={Admin} />
       <Route exact path="/user" component={Admin} />
+      <Route exact path="/user/:id" component={Dashboard} />
       <Route exact path="/table" component={Admin} />
       <Route exact path="/notifications" component={Admin} />
       <Redirect to="/" />

@@ -13,6 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import moment from "moment";
 import CurrencyInput from "../../../components/CurrencyInput/CurrencyInput";
+import { submitCarta } from "../../../services/cartas";
 
 const currencies = [
   {
@@ -50,6 +51,7 @@ const styles = theme => ({
 });
 
 const stateDefault = {
+  type: "IMOVEL",
   status: "disponivel",
   administradora: "",
   credito: "",
@@ -57,21 +59,28 @@ const stateDefault = {
   parcelas: "",
   valorDasParcelas: "",
   vencimento: moment(new Date()).format("YYYY-MM-DD"),
-  observacoes: ""
+  observacoes: "",
+  feitaPor: "feitapor@gmail.com"
 };
 
 class UserProfile extends React.Component {
   state = {
     ...stateDefault
   };
+
   handleChange = ({ target: { value, id, name } }) => {
     const key = id || name;
     this.setState({ [key]: value });
   };
 
-  handleSubmit = event => {
-    console.log("submit", this.state);
-    return false;
+  handleSubmit = async () => {
+    try {
+      const results = await submitCarta(this.state);
+      console.log("results", results);
+      this.setState({ ...stateDefault });
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   validateForm = () => {
@@ -114,7 +123,7 @@ class UserProfile extends React.Component {
               </CardHeader>
               <CardBody>
                 <GridContainer>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={6}>
                     <TextField
                       id="status"
                       select
@@ -132,7 +141,7 @@ class UserProfile extends React.Component {
                       ))}
                     </TextField>
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={6}>
                     <TextField
                       label="Administradora"
                       id="administradora"
@@ -142,45 +151,28 @@ class UserProfile extends React.Component {
                       onChange={this.handleChange}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
-                    <div className="MuiFormControl-root-221 MuiFormControl-fullWidth-224 input-space">
-                      <label
-                        className="MuiFormLabel-root-368 MuiInputLabel-root-363 MuiInputLabel-formControl-364 MuiInputLabel-animated-367"
-                        data-shrink="false"
-                        htmlFor="credito"
-                      >
-                        Crédito
-                      </label>
-                      <div className="MuiInput-root-225 MuiInput-fullWidth-232 MuiInput-formControl-226 MuiInput-underline-229">
-                        <CurrencyInput
-                          value={this.state.credito}
-                          onChange={this.handleChange}
-                        />
-                      </div>
-                    </div>
-                    <CurrencyInput
-                      value={this.state.credito}
-                      onChange={this.handleChange}
-                    />
-                    <TextField
-                      label="Crédito"
-                      id="credito"
-                      fullWidth
-                      value={this.state.credito}
-                      className="input-space"
-                      onChange={this.handleChange}
-                    />
-                  </GridItem>
                 </GridContainer>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={6}>
-                    <TextField
-                      label="Entrada"
-                      id="entrada"
-                      fullWidth
+                    <CurrencyInput
+                      label="Crédito (R$)"
+                      value={this.state.credito}
+                      onChange={value => {
+                        this.handleChange({
+                          target: { value, name: "credito" }
+                        });
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={6}>
+                    <CurrencyInput
+                      label="Entrada (R$)"
                       value={this.state.entrada}
-                      className="input-space"
-                      onChange={this.handleChange}
+                      onChange={value => {
+                        this.handleChange({
+                          target: { value, name: "entrada" }
+                        });
+                      }}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={6}>
@@ -188,23 +180,25 @@ class UserProfile extends React.Component {
                       label="Parcelas"
                       id="parcelas"
                       fullWidth
+                      type="number"
                       value={this.state.parcelas}
                       className="input-space"
                       onChange={this.handleChange}
                     />
                   </GridItem>
-                </GridContainer>
-                <GridContainer>
                   <GridItem xs={12} sm={12} md={6}>
-                    <TextField
-                      label="Valor das Parcelas"
-                      id="valorDasParcelas"
-                      fullWidth
+                    <CurrencyInput
+                      label="Valor das parcelas"
                       value={this.state.valorDasParcelas}
-                      className="input-space"
-                      onChange={this.handleChange}
+                      onChange={value => {
+                        this.handleChange({
+                          target: { value, name: "valorDasParcelas" }
+                        });
+                      }}
                     />
                   </GridItem>
+                </GridContainer>
+                <GridContainer>
                   <GridItem xs={12} sm={12} md={6}>
                     <TextField
                       label="Prox Vencimento"
@@ -216,9 +210,7 @@ class UserProfile extends React.Component {
                       type="date"
                     />
                   </GridItem>
-                </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={12}>
+                  <GridItem xs={12} sm={12} md={6}>
                     <TextField
                       label="Observações"
                       id="observacoes"

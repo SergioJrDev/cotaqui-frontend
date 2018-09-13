@@ -25,6 +25,13 @@ const dashboardRoutes = [
     component: UserProfile
   },
   {
+    path: "/user/:id",
+    sidebarName: "Editar Carta carta",
+    navbarName: "Editar Carta carta",
+    icon: Person,
+    component: UserProfile
+  },
+  {
     path: "/table",
     sidebarName: "Lista de cartas",
     navbarName: "Lista de cartas",

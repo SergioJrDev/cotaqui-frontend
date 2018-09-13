@@ -24,17 +24,30 @@ class CurrencyInput_ extends React.Component {
   };
 
   render() {
-    const { onChange, returnAsString, ...otherProps } = this.props;
+    const { onChange, returnAsString, label, ...otherProps } = this.props;
 
     return (
-      <CurrencyInput
-        prefix="R$"
-        decimalSeparator=","
-        thousandSeparator="."
-        className="MuiInput-input-233"
-        onChangeEvent={this.handleChange}
-        {...otherProps}
-      />
+      <div className="MuiFormControl-root-221 MuiFormControl-fullWidth-224 input-space">
+        {label && (
+          <label
+            className="MuiFormLabel-root-368 MuiFormLabel-filled-372 MuiInputLabel-root-363 MuiInputLabel-formControl-364 MuiInputLabel-animated-367 MuiInputLabel-shrink-366"
+            data-shrink="true"
+            htmlFor="status"
+          >
+            {label}
+          </label>
+        )}
+        <div className="MuiInput-root-225 MuiInput-fullWidth-232 MuiInput-formControl-226 MuiInput-underline-229">
+          <CurrencyInput
+            prefix="R$"
+            decimalSeparator=","
+            thousandSeparator="."
+            className="MuiInput-input-233"
+            onChangeEvent={this.handleChange}
+            {...otherProps}
+          />
+        </div>
+      </div>
     );
   }
 }
@@ -42,6 +55,7 @@ class CurrencyInput_ extends React.Component {
 CurrencyInput_.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
   returnAsString: PropTypes.bool
 };
 
