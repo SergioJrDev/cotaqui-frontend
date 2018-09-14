@@ -40,9 +40,7 @@ class App extends React.Component {
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
-  getRoute() {
-    return this.props.location.pathname !== "/maps";
-  }
+
   resizeFunction() {
     if (window.innerWidth >= 960) {
       this.setState({ mobileOpen: false });
@@ -54,19 +52,19 @@ class App extends React.Component {
     }
     window.addEventListener("resize", this.resizeFunction);
   }
-  componentDidUpdate(e) {
-    if (e.history.location.pathname !== e.location.pathname) {
-      this.refs.mainPanel.scrollTop = 0;
-      if (this.state.mobileOpen) {
-        this.setState({ mobileOpen: false });
-      }
-    }
-  }
+  // componentDidUpdate(e) {
+  //   if (e.history.location.pathname !== e.location.pathname) {
+  //     this.refs.mainPanel.scrollTop = 0;
+  //     if (this.state.mobileOpen) {
+  //       this.setState({ mobileOpen: false });
+  //     }
+  //   }
+  // }
   componentWillUnmount() {
     window.removeEventListener("resize", this.resizeFunction);
   }
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes, component: Component, ...rest } = this.props;
     return (
       <div className={classes.wrapper}>
         <Sidebar
@@ -86,14 +84,13 @@ class App extends React.Component {
             {...rest}
           />
           {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-          {this.getRoute() ? (
-            <div className={classes.content}>
-              <div className={classes.container}>{switchRoutes}</div>
+          <div className={classes.content}>
+            <div className={classes.container}>
+              <Component />
             </div>
-          ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
-          {this.getRoute() ? <Footer /> : null}
+          </div>
+
+          <Footer />
         </div>
       </div>
     );

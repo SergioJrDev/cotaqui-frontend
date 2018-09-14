@@ -11,11 +11,44 @@ const formatCatch = ({ response }) => {
 };
 
 export const submitCarta = params => {
-  console.log("params", params);
-  // return new Promise((resolve, reject) => {
   return instance
     .post("/add-nova-carta", params)
     .then(formatReponse)
     .catch(formatCatch);
-  // });
+};
+
+export const getSingleCarta = _id => {
+  return new Promise((resolve, reject) => {
+    return instance
+      .get("/get-single-carta", { params: { _id } })
+      .then(response => resolve(formatReponse(response)))
+      .catch(error => reject(formatCatch(error)));
+  });
+};
+
+export const getAllCartas = () => {
+  return new Promise((resolve, reject) => {
+    return instance
+      .get("/get-all-cartas")
+      .then(response => resolve(formatReponse(response)))
+      .catch(error => reject(formatCatch(error)));
+  });
+};
+
+export const updateCarta = params => {
+  return new Promise((resolve, reject) => {
+    return instance
+      .put("/atualizar-carta", { ...params })
+      .then(response => resolve(formatReponse(response)))
+      .catch(error => reject(formatCatch(error)));
+  });
+};
+
+export const deleteCarta = params => {
+  return new Promise((resolve, reject) => {
+    return instance
+      .delete("/delete-carta", { params })
+      .then(response => resolve(formatReponse(response)))
+      .catch(error => reject(formatCatch(error)));
+  });
 };

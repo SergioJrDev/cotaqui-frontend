@@ -1,13 +1,10 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
-
-import Notifications from "@material-ui/icons/Notifications";
-// core components/views
 import DashboardPage from "./../views/Dashboard/Dashboard.jsx";
-import UserProfile from "./../views/UserProfile/UserProfile.jsx";
+import CriarCarta from "../views/Cartas/CriarCarta";
+import ListaDeCartas from "../views/Cartas/ListaDeCartas";
 import TableList from "./../views/TableList/TableList.jsx";
-import NotificationsPage from "./../views/Notifications/Notifications.jsx";
 
 const dashboardRoutes = [
   {
@@ -18,18 +15,18 @@ const dashboardRoutes = [
     component: DashboardPage
   },
   {
-    path: "/user",
+    path: "/criar-carta",
     sidebarName: "Criar carta",
     navbarName: "Criar carta",
     icon: Person,
-    component: UserProfile
+    component: CriarCarta
   },
   {
-    path: "/user/:id",
-    sidebarName: "Editar Carta carta",
-    navbarName: "Editar Carta carta",
+    path: "/lista-de-cartas",
+    sidebarName: "Lista de cartas",
+    navbarName: "Lista de cartas",
     icon: Person,
-    component: UserProfile
+    component: ListaDeCartas
   },
   {
     path: "/table",
@@ -37,13 +34,6 @@ const dashboardRoutes = [
     navbarName: "Lista de cartas",
     icon: "content_paste",
     component: TableList
-  },
-  {
-    path: "/notifications",
-    sidebarName: "Notifications",
-    navbarName: "Notifications",
-    icon: Notifications,
-    component: NotificationsPage
   },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];

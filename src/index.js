@@ -17,7 +17,10 @@ import SingleCotas from "views/SingleCota/SingleCota";
 
 import Admin from "./admin/layouts/Dashboard/Dashboard";
 
-import Dashboard from "./admin/views/UserProfile/UserProfile";
+import CriarCarta from "./admin/views/Cartas/CriarCarta";
+import EditCards from "./admin/views/Cartas/EditCartas";
+import Dashboard from "./admin/layouts/Dashboard/Dashboard";
+import ListaDeCartas from "./admin/views/Cartas/ListaDeCartas";
 
 var hist = createBrowserHistory();
 
@@ -28,8 +31,21 @@ ReactDOM.render(
       <Route exact path="/cartas-contempladas/:id" component={SingleCotas} />
       <Route exact path="/cartas-contempladas" component={Cartas} />
       <Route exact path="/dashboard" component={Admin} />
-      <Route exact path="/user" component={Admin} />
-      <Route exact path="/user/:id" component={Dashboard} />
+      <Route
+        exact
+        path="/criar-carta"
+        component={() => <Dashboard component={CriarCarta} />}
+      />
+      <Route
+        exact
+        path="/lista-de-cartas/:_id"
+        component={() => <Dashboard component={EditCards} />}
+      />
+      <Route
+        exact
+        path="/lista-de-cartas"
+        component={() => <Dashboard component={ListaDeCartas} />}
+      />
       <Route exact path="/table" component={Admin} />
       <Route exact path="/notifications" component={Admin} />
       <Redirect to="/" />

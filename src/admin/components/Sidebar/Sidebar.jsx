@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "classnames";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 // @material-ui/core components
@@ -15,30 +14,14 @@ import Icon from "@material-ui/core/Icon";
 import sidebarStyle from "./../../assets/jss/material-dashboard-react/components/sidebarStyle.jsx";
 
 const Sidebar = ({ ...props }) => {
-  // verifies if routeName is the one active (in browser input)
-  function activeRoute(routeName) {
-    return props.location.pathname.indexOf(routeName) > -1 ? true : false;
-  }
-  const { classes, color, image, logoText, routes } = props;
+  const { classes, image, logoText, routes } = props;
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
         if (prop.redirect) return null;
         var activePro = " ";
         var listItemClasses;
-        if (prop.path === "/upgrade-to-pro") {
-          activePro = classes.activePro + " ";
-          listItemClasses = classNames({
-            [" " + classes[color]]: true
-          });
-        } else {
-          listItemClasses = classNames({
-            [" " + classes[color]]: activeRoute(prop.path)
-          });
-        }
-        const whiteFontClasses = classNames({
-          [" " + classes.whiteFont]: activeRoute(prop.path)
-        });
+
         return (
           <NavLink
             to={prop.path}
@@ -47,7 +30,7 @@ const Sidebar = ({ ...props }) => {
             key={key}
           >
             <ListItem button className={classes.itemLink + listItemClasses}>
-              <ListItemIcon className={classes.itemIcon + whiteFontClasses}>
+              <ListItemIcon className={classes.itemIcon}>
                 {typeof prop.icon === "string" ? (
                   <Icon>{prop.icon}</Icon>
                 ) : (
@@ -56,7 +39,7 @@ const Sidebar = ({ ...props }) => {
               </ListItemIcon>
               <ListItemText
                 primary={prop.sidebarName}
-                className={classes.itemText + whiteFontClasses}
+                className={classes.itemText}
                 disableTypography={true}
               />
             </ListItem>
