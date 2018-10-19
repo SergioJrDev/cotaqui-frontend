@@ -48,7 +48,6 @@ class ListaDeCartas extends React.Component {
     this.setState({ isFetching: true }, async () => {
       try {
         const { response } = await getAllCartas();
-        console.log("res", response);
         this.setState({ isFetching: false, results: response });
       } catch (error) {
         console.log("error", error);

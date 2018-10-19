@@ -6,14 +6,25 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Section from "components/Section/Section";
 import Table from "components/Table/Table";
+import { getAllCartas } from "../../services/cartas";
 
 class AllCotas extends React.Component {
-  componentDidMount = () => {
+  state = {
+    results: []
+  };
+  componentDidMount = async () => {
     console.log("fetch");
+    try {
+      const { response } = await getAllCartas();
+      this.setState({
+        results: Object.values(response)
+      });
+    } catch (error) {}
   };
 
   render() {
     const { classes } = this.props;
+    const { results } = this.state;
     return (
       <PageWrapper>
         <div>
@@ -23,7 +34,7 @@ class AllCotas extends React.Component {
                 <GridItem xs={12}>
                   <h1 className={classes.title}>Cartas contempladas</h1>
                   <p>Sessão de veículos</p>
-                  <Table />
+                  {results.length > 0 && <Table rows={results} />}
                 </GridItem>
               </GridContainer>
             </div>

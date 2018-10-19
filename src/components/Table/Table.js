@@ -7,6 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import { NavLink } from "react-router-dom";
+import moment from "moment";
 // import Button from "components/CustomButtons/Button.jsx";
 
 const styles = theme => ({
@@ -25,81 +26,8 @@ const styles = theme => ({
   }
 });
 
-const rows = [
-  {
-    name: "Bradesco",
-    credit: "50.100",
-    entry: "15.000",
-    installments: "87",
-    installmentsAmount: "532,00",
-    dueDate: "10/07/2020",
-    obs: "",
-    avaliable: true
-  },
-  {
-    name: "Bradesco",
-    credit: "50.100",
-    entry: "15.000",
-    installments: "87",
-    installmentsAmount: "532,00",
-    dueDate: "10/07/2020",
-    obs: "",
-    avaliable: true
-  },
-  {
-    name: "Bradesco",
-    credit: "50.100",
-    entry: "15.000",
-    installments: "87",
-    installmentsAmount: "532,00",
-    dueDate: "10/07/2020",
-    obs: "",
-    avaliable: true
-  },
-  {
-    name: "Bradesco",
-    credit: "50.100",
-    entry: "15.000",
-    installments: "87",
-    installmentsAmount: "532,00",
-    dueDate: "10/07/2020",
-    obs: "",
-    avaliable: true
-  },
-  {
-    name: "Bradesco",
-    credit: "50.100",
-    entry: "15.000",
-    installments: "87",
-    installmentsAmount: "532,00",
-    dueDate: "10/07/2020",
-    obs: "",
-    avaliable: false
-  },
-  {
-    name: "Bradesco",
-    credit: "50.100",
-    entry: "15.000",
-    installments: "87",
-    installmentsAmount: "532,00",
-    dueDate: "10/07/2020",
-    obs: "",
-    avaliable: false
-  },
-  {
-    name: "Bradesco",
-    credit: "50.100",
-    entry: "15.000",
-    installments: "87",
-    installmentsAmount: "532,00",
-    dueDate: "10/07/2020",
-    obs: "",
-    avaliable: true
-  }
-];
-
 const TableData = props => {
-  // const { classes } = props;
+  const { rows } = props;
   return (
     <div style={{ overflow: "scroll" }}>
       <Table>
@@ -117,18 +45,20 @@ const TableData = props => {
         <TableBody>
           {rows.map((row, index) => {
             return (
-              <TableRow key={index}>
+              <TableRow key={row._id}>
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.administradora}
                 </TableCell>
-                <TableCell>{row.credit}</TableCell>
-                <TableCell>{row.entry}</TableCell>
-                <TableCell>{row.installments}</TableCell>
-                <TableCell>{row.installmentsAmount}</TableCell>
-                <TableCell>{row.dueDate}</TableCell>
+                <TableCell>{row.credito}</TableCell>
+                <TableCell>{row.entrada}</TableCell>
+                <TableCell>{row.parcelas}</TableCell>
+                <TableCell>{row.valorDasParcelas}</TableCell>
                 <TableCell>
-                  {row.avaliable ? (
-                    <NavLink to="/cartas-contempladas/123122">
+                  {moment(row.vencimento).format("DD/MM/YYYY")}
+                </TableCell>
+                <TableCell>
+                  {!row.interessado ? (
+                    <NavLink to={`/cartas-contempladas/${row._id}`}>
                       <Button variant="contained" color="primary">
                         Comprar
                       </Button>

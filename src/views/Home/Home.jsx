@@ -11,6 +11,7 @@ import Table from "components/Table/Table";
 import Chat from "@material-ui/icons/Chat";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import Fingerprint from "@material-ui/icons/Fingerprint";
+import { getAllCartas } from "../../services/cartas";
 
 const bgImage =
   "https://www.hospitalitymarketplace.co.za/wp-content/uploads/2018/05/business.jpg";
@@ -23,7 +24,23 @@ const MainSectionStyle = {
 };
 
 class Home extends React.Component {
+  state = {
+    results: []
+  };
+  componentDidMount = () => {
+    this.fetchCartas();
+  };
+
+  fetchCartas = async () => {
+    try {
+      const { response } = await getAllCartas();
+      this.setState({
+        results: Object.values(response)
+      });
+    } catch (error) {}
+  };
   render() {
+    const { results } = this.state;
     const { classes } = this.props;
     return (
       <PageWrapper>
@@ -97,16 +114,18 @@ class Home extends React.Component {
               </GridContainer>
             </div>
           </Section>
-          <Section>
-            <div className={classes.container}>
-              <h2>Nossas cotas</h2>
-              <GridContainer>
-                <GridItem xs={12}>
-                  <Table />
-                </GridItem>
-              </GridContainer>
-            </div>
-          </Section>
+          {results.length > 0 && (
+            <Section>
+              <div className={classes.container}>
+                <h2>Nossas cotas</h2>
+                <GridContainer>
+                  <GridItem xs={12}>
+                    <Table rows={results} />
+                  </GridItem>
+                </GridContainer>
+              </div>
+            </Section>
+          )}
         </div>
       </PageWrapper>
     );

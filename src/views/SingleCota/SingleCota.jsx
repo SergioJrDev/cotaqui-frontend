@@ -8,140 +8,86 @@ import Section from "components/Section/Section";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputMask from "./../../utils/InputMask";
+import { getSingleCarta, updateCarta } from "../../services/cartas";
+import CartaDetails from "../../components/CartaDetails/CartaDetails";
 
 const stateDefault = {
-  name: "",
-  email: "",
-  phone: "",
-  phone_mobile: "",
-  details: null
+  interessado: {
+    name: "",
+    email: "",
+    phone: "",
+    phone_mobile: "",
+    details: null
+  }
 };
-
-const mockDetails = {
-  name: "Bradesco",
-  credit: "50.100",
-  entry: "15.000",
-  installments: "87",
-  installmentsAmount: "532,00",
-  dueDate: "10/07/2020",
-  obs: "",
-  avaliable: true
-};
-
-const borderBottom = {
-  borderBottom: "1px solid #e0e0e0",
-  marginBottom: 10
-};
-
-const DetailsLit = ({
-  name,
-  credit,
-  entry,
-  installments,
-  installmentsAmount,
-  dueDate,
-  obs,
-  avaliable
-}) => (
-  <div>
-    {name && (
-      <div style={borderBottom}>
-        <span>Administradora:</span>
-        <p>
-          <strong>{name}</strong>
-        </p>
-      </div>
-    )}
-    {credit && (
-      <div style={borderBottom}>
-        <span>Crédito:</span>
-        <p>
-          <strong>{credit}</strong>
-        </p>
-      </div>
-    )}
-    {entry && (
-      <div style={borderBottom}>
-        <span>Entrada:</span>
-        <p>
-          <strong>{entry}</strong>
-        </p>
-      </div>
-    )}
-    {installments && (
-      <div style={borderBottom}>
-        <span>Parcelas</span>
-        <p>
-          <strong>{installments}</strong>
-        </p>
-      </div>
-    )}
-    {installmentsAmount && (
-      <div style={borderBottom}>
-        <span>Valor das Parcelas</span>
-        <p>
-          <strong>{installmentsAmount}</strong>
-        </p>
-      </div>
-    )}
-    {obs && (
-      <div style={borderBottom}>
-        <span>Observações</span>
-        <p>
-          <strong>{obs}</strong>
-        </p>
-      </div>
-    )}
-    {dueDate && (
-      <div>
-        <span>Validade</span>
-        <p>
-          <strong>{dueDate}</strong>
-        </p>
-      </div>
-    )}
-  </div>
-);
 
 class SingleCota extends React.Component {
   state = {
-    id: null,
     ...stateDefault
   };
 
   componentDidMount = () => {
-    this.fetchCota();
+    this.fetchCarta();
   };
 
   componentDidUpdate = prevProps => {
     if (prevProps.match !== this.props.match) {
-      this.fetchCota();
+      this.fetchCarta();
     }
   };
 
-  fetchCota = () => {
+  fetchCarta = () => {
     const {
       match: {
         params: { id }
       }
     } = this.props;
-    this.setState({ id, details: { ...mockDetails } });
+    this.setState({ isFetching: true }, async () => {
+      try {
+        const { result } = await getSingleCarta(id);
+        this.setState({
+          ...result,
+          isFetching: false
+        });
+      } catch (error) {
+        console.log("error", error);
+        this.props.history.push("/cartas-contempladas");
+      }
+    });
   };
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({
-      [name]: value
+      interessado: {
+        ...this.state.interessado,
+        [name]: value
+      }
     });
   };
 
   handleSubmit = () => {
-    console.log("submit", this.state);
+    this.setState({ isFetching: true }, async () => {
+      try {
+        const { response } = await updateCarta(this.state);
+        console.log("response", response);
+        this.setState({
+          ...stateDefault
+        }),
+          this.fetchCarta;
+      } catch (error) {
+        console.log("error", error);
+        this.setState({
+          ...stateDefault
+        });
+      }
+    });
   };
 
   validateForm = () => {
-    const { name, email, phone, phone_mobile } = this.state;
-    const isPhoneValid = phone.replace(/\D/g, "");
-    const isPhoneMobileValid = phone_mobile.replace(/\D/g, "");
+    const { interessado } = this.state;
+    const { name, email, phone, phone_mobile } = interessado;
+    const isPhoneValid = phone && phone.replace(/\D/g, "");
+    const isPhoneMobileValid = phone_mobile && phone_mobile.replace(/\D/g, "");
     return (
       !name ||
       !email ||
@@ -151,9 +97,9 @@ class SingleCota extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { name, email, phone, phone_mobile, details } = this.state;
+    const { interessado } = this.state;
+    const { name, email, phone, phone_mobile } = interessado;
     const isValid = this.validateForm();
-
     return (
       <PageWrapper>
         <div>
@@ -162,7 +108,7 @@ class SingleCota extends React.Component {
               <h1 className={classes.title}>Detalhes</h1>
               <GridContainer>
                 <GridItem xs={12} md={4}>
-                  {details && <DetailsLit {...details} />}
+                  <CartaDetails {...this.state} />
                 </GridItem>
                 <GridItem xs={12} md={8}>
                   <form>
@@ -226,6 +172,7 @@ class SingleCota extends React.Component {
                       disabled={isValid}
                       variant="contained"
                       color="primary"
+                      onClick={this.handleSubmit}
                     >
                       Comprar
                     </Button>

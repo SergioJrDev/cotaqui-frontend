@@ -6,8 +6,6 @@ import GridItem from "../../components/Grid/GridItem";
 import GridContainer from "../../components/Grid/GridContainer";
 import CardBody from "../../components/Card/CardBody";
 import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-// import moment from "moment";
 import CurrencyInput from "../../../components/CurrencyInput/CurrencyInput";
 
 const styles = theme => ({
