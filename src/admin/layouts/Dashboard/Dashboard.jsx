@@ -65,6 +65,7 @@ class App extends React.Component {
   }
   render() {
     const { classes, component: Component, ...rest } = this.props;
+
     return (
       <div className={classes.wrapper}>
         <Sidebar

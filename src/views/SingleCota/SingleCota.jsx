@@ -10,15 +10,19 @@ import Button from "@material-ui/core/Button";
 import InputMask from "./../../utils/InputMask";
 import { getSingleCarta, updateCarta } from "../../services/cartas";
 import CartaDetails from "../../components/CartaDetails/CartaDetails";
+import _get from "lodash/get";
+import TableWithResults from "../../components/TableWithResults/TableWithResults";
 
 const stateDefault = {
   interessado: {
-    name: "",
+    nome: "",
     email: "",
-    phone: "",
-    phone_mobile: "",
-    details: null
-  }
+    telefone: "",
+    celular: "",
+    details: ""
+  },
+  wasReserved: false,
+  isAlreadyReserved: false
 };
 
 class SingleCota extends React.Component {
@@ -45,9 +49,12 @@ class SingleCota extends React.Component {
     this.setState({ isFetching: true }, async () => {
       try {
         const { result } = await getSingleCarta(id);
+        const hasName = _get(result, "interessado.nome");
+        console.log("interessado", result, hasName);
         this.setState({
           ...result,
-          isFetching: false
+          isFetching: false,
+          isAlreadyReserved: !!hasName
         });
       } catch (error) {
         console.log("error", error);
@@ -69,11 +76,10 @@ class SingleCota extends React.Component {
     this.setState({ isFetching: true }, async () => {
       try {
         const { response } = await updateCarta(this.state);
-        console.log("response", response);
         this.setState({
-          ...stateDefault
-        }),
-          this.fetchCarta;
+          ...stateDefault,
+          wasReserved: true
+        });
       } catch (error) {
         console.log("error", error);
         this.setState({
@@ -85,11 +91,11 @@ class SingleCota extends React.Component {
 
   validateForm = () => {
     const { interessado } = this.state;
-    const { name, email, phone, phone_mobile } = interessado;
-    const isPhoneValid = phone && phone.replace(/\D/g, "");
-    const isPhoneMobileValid = phone_mobile && phone_mobile.replace(/\D/g, "");
+    const { nome, email, telefone, celular } = interessado;
+    const isPhoneValid = telefone && telefone.replace(/\D/g, "");
+    const isPhoneMobileValid = celular && celular.replace(/\D/g, "");
     return (
-      !name ||
+      !nome ||
       !email ||
       (isPhoneValid.length !== 10 && isPhoneMobileValid.length !== 11)
     );
@@ -97,8 +103,8 @@ class SingleCota extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { interessado } = this.state;
-    const { name, email, phone, phone_mobile } = interessado;
+    const { interessado, wasReserved, isAlreadyReserved } = this.state;
+    const { nome, email, telefone, celular } = interessado;
     const isValid = this.validateForm();
     return (
       <PageWrapper>
@@ -111,72 +117,88 @@ class SingleCota extends React.Component {
                   <CartaDetails {...this.state} />
                 </GridItem>
                 <GridItem xs={12} md={8}>
-                  <form>
-                    <p>
-                      Preencha seus dados, em breve entraremos em contato com
-                      você.
-                    </p>
-                    <TextField
-                      id="name"
-                      label="Nome"
-                      name="name"
-                      className={classes.textField}
-                      value={name}
-                      onChange={this.handleChange}
-                      margin="normal"
-                      fullWidth
-                    />
-
-                    <TextField
-                      id="email"
-                      label="E-mail"
-                      name="email"
-                      className={classes.textField}
-                      value={email}
-                      onChange={this.handleChange}
-                      margin="normal"
-                      fullWidth
-                    />
-
-                    <GridContainer>
-                      <GridItem xs={6}>
-                        <InputMask
-                          id="phone"
-                          label="Telefone"
-                          name="phone"
+                  {isAlreadyReserved && (
+                    <div>
+                      <p>Está carta já reservada. Veja outras nossa lista.</p>
+                      <TableWithResults />
+                    </div>
+                  )}
+                  {wasReserved &&
+                    !isAlreadyReserved && (
+                      <p>
+                        Obrigado, sua carta foi registrada. Em breve entraremos
+                        em contato com você.
+                      </p>
+                    )}
+                  {!wasReserved &&
+                    !isAlreadyReserved && (
+                      <form>
+                        <p>
+                          Preencha seus dados, em breve entraremos em contato
+                          com você.
+                        </p>
+                        <TextField
+                          id="name"
+                          label="Nome"
+                          name="nome"
                           className={classes.textField}
-                          value={phone}
+                          value={nome}
                           onChange={this.handleChange}
                           margin="normal"
                           fullWidth
-                          mask="(99) 9999-9999"
                         />
-                      </GridItem>
 
-                      <GridItem xs={6}>
-                        <InputMask
-                          id="phone_mobile"
-                          label="Celular"
-                          name="phone_mobile"
+                        <TextField
+                          id="email"
+                          label="E-mail"
+                          name="email"
                           className={classes.textField}
-                          value={phone_mobile}
+                          value={email}
                           onChange={this.handleChange}
                           margin="normal"
                           fullWidth
-                          mask="(99) 99999-9999"
                         />
-                      </GridItem>
-                    </GridContainer>
-                    <Button
-                      style={{ marginTop: 20 }}
-                      disabled={isValid}
-                      variant="contained"
-                      color="primary"
-                      onClick={this.handleSubmit}
-                    >
-                      Comprar
-                    </Button>
-                  </form>
+
+                        <GridContainer>
+                          <GridItem xs={6}>
+                            <InputMask
+                              id="telefone"
+                              label="Telefone"
+                              name="telefone"
+                              className={classes.textField}
+                              value={telefone || ""}
+                              onChange={this.handleChange}
+                              margin="normal"
+                              fullWidth
+                              mask="(99) 9999-9999"
+                            />
+                          </GridItem>
+
+                          <GridItem xs={6}>
+                            <InputMask
+                              id="celular"
+                              label="Celular"
+                              name="celular"
+                              className={classes.textField}
+                              value={celular || ""}
+                              onChange={this.handleChange}
+                              margin="normal"
+                              fullWidth
+                              mask="(99) 99999-9999"
+                            />
+                          </GridItem>
+                        </GridContainer>
+                        <Button
+                          style={{ marginTop: 20 }}
+                          disabled={isValid}
+                          variant="contained"
+                          color="primary"
+                          onClick={this.handleSubmit}
+                        >
+                          Comprar
+                        </Button>
+                      </form>
+                    )}
                 </GridItem>
               </GridContainer>
             </div>

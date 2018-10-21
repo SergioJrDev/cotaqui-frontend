@@ -12,6 +12,7 @@ import Chat from "@material-ui/icons/Chat";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import Fingerprint from "@material-ui/icons/Fingerprint";
 import { getAllCartas } from "../../services/cartas";
+import TableWithResults from "../../components/TableWithResults/TableWithResults";
 
 const bgImage =
   "https://www.hospitalitymarketplace.co.za/wp-content/uploads/2018/05/business.jpg";
@@ -40,8 +41,9 @@ class Home extends React.Component {
     } catch (error) {}
   };
   render() {
-    const { results } = this.state;
+    const { results = [] } = this.state;
     const { classes } = this.props;
+    const resultsFiltered = results.filter(result => !result.interessado);
     return (
       <PageWrapper>
         <div>
@@ -114,13 +116,13 @@ class Home extends React.Component {
               </GridContainer>
             </div>
           </Section>
-          {results.length > 0 && (
+          {resultsFiltered.length > 0 && (
             <Section>
               <div className={classes.container}>
                 <h2>Nossas cotas</h2>
                 <GridContainer>
                   <GridItem xs={12}>
-                    <Table rows={results} />
+                    <TableWithResults />
                   </GridItem>
                 </GridContainer>
               </div>
