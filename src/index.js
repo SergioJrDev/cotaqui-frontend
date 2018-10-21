@@ -21,6 +21,7 @@ import CriarCarta from "./admin/views/Cartas/CriarCarta";
 import EditCards from "./admin/views/Cartas/EditCartas";
 import Dashboard from "./admin/layouts/Dashboard/Dashboard";
 import ListaDeCartas from "./admin/views/Cartas/ListaDeCartas";
+import ListaDeInteressados from "./admin/views/Cartas/Interessados";
 
 var hist = createBrowserHistory();
 
@@ -45,6 +46,11 @@ ReactDOM.render(
         exact
         path="/lista-de-cartas"
         component={() => <Dashboard component={ListaDeCartas} />}
+      />
+      <Route
+        exact
+        path="/lista-de-interessados"
+        component={() => <Dashboard component={ListaDeInteressados} />}
       />
       <Route exact path="/table" component={Admin} />
       <Route exact path="/notifications" component={Admin} />

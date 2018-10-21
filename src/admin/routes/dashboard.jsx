@@ -4,6 +4,7 @@ import Person from "@material-ui/icons/Person";
 import DashboardPage from "./../views/Dashboard/Dashboard.jsx";
 import CriarCarta from "../views/Cartas/CriarCarta";
 import ListaDeCartas from "../views/Cartas/ListaDeCartas";
+import ListaDeInteressados from "../views/Cartas/Interessados";
 import TableList from "./../views/TableList/TableList.jsx";
 
 const dashboardRoutes = [
@@ -29,11 +30,11 @@ const dashboardRoutes = [
     component: ListaDeCartas
   },
   {
-    path: "/table",
-    sidebarName: "Lista de cartas",
-    navbarName: "Lista de cartas",
-    icon: "content_paste",
-    component: TableList
+    path: "/lista-de-interessados",
+    sidebarName: "Lista de interessados",
+    navbarName: "Lista de interessados",
+    icon: Person,
+    component: ListaDeInteressados
   },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];

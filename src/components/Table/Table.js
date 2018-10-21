@@ -8,7 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-// import Button from "components/CustomButtons/Button.jsx";
+import _get from "lodash/get";
 
 const styles = theme => ({
   root: {
@@ -44,6 +44,7 @@ const TableData = props => {
         </TableHead>
         <TableBody>
           {rows.map((row, index) => {
+            const hasInterested = _get(row, "interessado.nome");
             return (
               <TableRow key={row._id}>
                 <TableCell component="th" scope="row">
@@ -57,7 +58,7 @@ const TableData = props => {
                   {moment(row.vencimento).format("DD/MM/YYYY")}
                 </TableCell>
                 <TableCell>
-                  {!row.interessado ? (
+                  {!hasInterested ? (
                     <NavLink to={`/cartas-contempladas/${row._id}`}>
                       <Button variant="contained" color="primary">
                         Comprar

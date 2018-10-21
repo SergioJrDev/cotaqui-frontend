@@ -194,7 +194,7 @@ class EditCards extends React.Component {
                 </Button>
                 {hasInteressed && (
                   <Button
-                    variant="contained"
+                    color="warning"
                     onClick={this.handleRemoveInteressado}
                     disabled={isFetching}
                   >
@@ -205,7 +205,7 @@ class EditCards extends React.Component {
               <Button
                 disabled={isFetching}
                 onClick={this.handleDelete}
-                color="secondar"
+                color="danger"
               >
                 Excluir Carta
               </Button>

@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import moment from "moment";
 import Button from "../../components/CustomButtons/Button";
 import { NavLink } from "react-router-dom";
+import _get from "lodash/get";
 
 const styles = theme => ({
   root: {
@@ -23,6 +24,7 @@ const styles = theme => ({
 
 const TableList = props => {
   const { rows, classes } = props;
+
   return (
     <div className={classes.root}>
       <Table>
@@ -38,23 +40,28 @@ const TableList = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row._id}>
-              <TableCell>{row.administradora}</TableCell>
-              <TableCell>{row.credito}</TableCell>
-              <TableCell>{row.entrada}</TableCell>
-              <TableCell>{row.parcelas}</TableCell>
-              <TableCell>{row.valorDasParcelas}</TableCell>
-              <TableCell>
-                {moment(row.vencimento).format("DD/MM/YYYY")}
-              </TableCell>
-              <TableCell>
-                <NavLink to={`/lista-de-cartas/${row._id}`}>
-                  <Button color="primary">Detalhes</Button>
-                </NavLink>
-              </TableCell>
-            </TableRow>
-          ))}
+          {rows.map(row => {
+            const hasInterested = _get(row, "interessado.nome", false);
+            return (
+              <TableRow key={row._id}>
+                <TableCell>{row.administradora}</TableCell>
+                <TableCell>{row.credito}</TableCell>
+                <TableCell>{row.entrada}</TableCell>
+                <TableCell>{row.parcelas}</TableCell>
+                <TableCell>{row.valorDasParcelas}</TableCell>
+                <TableCell>
+                  {moment(row.vencimento).format("DD/MM/YYYY")}
+                </TableCell>
+                <TableCell>
+                  <NavLink to={`/lista-de-cartas/${row._id}`}>
+                    <Button color={hasInterested ? "success" : "primary"}>
+                      Detalhes
+                    </Button>
+                  </NavLink>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>

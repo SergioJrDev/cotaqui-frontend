@@ -61,3 +61,12 @@ export const deleteCarta = params => {
       .catch(error => reject(formatCatch(error)));
   });
 };
+
+export const getInteressados = () => {
+  return new Promise((resolve, reject) => {
+    return instance
+      .get("/get-interested")
+      .then(response => resolve(formatReponse(response)))
+      .catch(error => reject(formatCatch(error)));
+  });
+};
