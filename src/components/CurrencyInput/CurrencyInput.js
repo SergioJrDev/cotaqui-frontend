@@ -37,12 +37,12 @@ class CurrencyInput_ extends React.Component {
             {label}
           </label>
         )}
-        <div className="MuiInput-root-225 MuiInput-fullWidth-232 MuiInput-formControl-226 MuiInput-underline-229">
+        <div className="MuiInput-root-263 MuiInput-fullWidth-270 MuiInput-formControl-264_ MuiInput-underline-267 border-wrapper">
           <CurrencyInput
             prefix="R$"
             decimalSeparator=","
             thousandSeparator="."
-            className="MuiInput-input-233"
+            className="MuiInput-input-271 MuiInput-inputType-274 MuiInput-input-427 input_style__"
             onChangeEvent={this.handleChange}
             {...otherProps}
           />

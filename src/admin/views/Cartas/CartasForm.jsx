@@ -7,6 +7,7 @@ import GridContainer from "../../components/Grid/GridContainer";
 import CardBody from "../../components/Card/CardBody";
 import TextField from "@material-ui/core/TextField";
 import CurrencyInput from "../../../components/CurrencyInput/CurrencyInput";
+import _get from "lodash/get";
 
 const styles = theme => ({
   cardCategoryWhite: {
@@ -34,15 +35,18 @@ const styles = theme => ({
 
 class CartasForm extends React.Component {
   render() {
+    console.log(this.props);
+    const hasInteressed = _get(this.props, "interessado.nome", false);
     return (
       <div>
         <CardBody>
           <GridContainer>
-            <GridItem xs={12} sm={12} md={6}>
+            <GridItem xs={12} sm={12} md={12}>
               <TextField
                 label="Administradora"
                 id="administradora"
                 fullWidth
+                disabled={hasInteressed}
                 value={this.props.administradora}
                 className="input-space"
                 onChange={this.props.handleChange}
@@ -52,6 +56,7 @@ class CartasForm extends React.Component {
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
               <CurrencyInput
+                disabled={hasInteressed}
                 label="Crédito (R$)"
                 value={this.props.credito}
                 onChange={value => {
@@ -63,6 +68,7 @@ class CartasForm extends React.Component {
             </GridItem>
             <GridItem xs={12} sm={12} md={6}>
               <CurrencyInput
+                disabled={hasInteressed}
                 label="Entrada (R$)"
                 value={this.props.entrada}
                 onChange={value => {
@@ -85,6 +91,7 @@ class CartasForm extends React.Component {
                   <TextField
                     id="parcelas"
                     fullWidth
+                    disabled={hasInteressed}
                     type="number"
                     value={this.props.parcelas}
                     onChange={this.props.handleChange}
@@ -93,15 +100,16 @@ class CartasForm extends React.Component {
               </div>
             </GridItem>
             <GridItem xs={12} sm={12} md={6}>
-              <CurrencyInput
-                label="Valor das parcelas"
-                value={this.props.valorDasParcelas}
-                onChange={value => {
-                  this.props.handleChange({
-                    target: { value, name: "valorDasParcelas" }
-                  });
-                }}
-              />
+                <CurrencyInput
+                  label="Valor das parcelas"
+                  disabled={hasInteressed}
+                  value={this.props.valorDasParcelas}
+                  onChange={value => {
+                    this.props.handleChange({
+                      target: { value, name: "valorDasParcelas" }
+                    });
+                  }}
+                />
             </GridItem>
           </GridContainer>
           <GridContainer>
@@ -110,6 +118,7 @@ class CartasForm extends React.Component {
                 label="Prox Vencimento"
                 id="vencimento"
                 fullWidth
+                disabled={hasInteressed}
                 value={this.props.vencimento}
                 className="input-space"
                 onChange={this.props.handleChange}
@@ -120,6 +129,7 @@ class CartasForm extends React.Component {
               <TextField
                 label="Observações"
                 id="observacoes"
+                disabled={hasInteressed}
                 value={this.props.observacoes}
                 className="input-space"
                 onChange={this.props.handleChange}
@@ -127,6 +137,54 @@ class CartasForm extends React.Component {
               />
             </GridItem>
           </GridContainer>
+          {!!hasInteressed && (
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={6}>
+                <TextField
+                  label="Nome"
+                  id="nome"
+                  disabled
+                  value={this.props.interessado.nome}
+                  className="input-space"
+                  onChange={this.props.handleChange}
+                  fullWidth
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={6}>
+                <TextField
+                  label="E-mail"
+                  id="email"
+                  disabled
+                  value={this.props.interessado.email}
+                  className="input-space"
+                  onChange={this.props.handleChange}
+                  fullWidth
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={6}>
+                <TextField
+                  label="Celular"
+                  id="celular"
+                  disabled
+                  value={this.props.interessado.celular}
+                  className="input-space"
+                  onChange={this.props.handleChange}
+                  fullWidth
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={6}>
+                <TextField
+                  label="Telefone"
+                  id="telefone"
+                  disabled
+                  value={this.props.interessado.telefone}
+                  className="input-space"
+                  onChange={this.props.handleChange}
+                  fullWidth
+                />
+              </GridItem>
+            </GridContainer>
+          )}
         </CardBody>
       </div>
     );

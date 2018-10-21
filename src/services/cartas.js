@@ -26,6 +26,15 @@ export const getSingleCarta = _id => {
   });
 };
 
+export const getSingleCartaWithDetails = _id => {
+  return new Promise((resolve, reject) => {
+    return instance
+      .get("/get-single-with-details", { params: { _id } })
+      .then(response => resolve(formatReponse(response)))
+      .catch(error => reject(formatCatch(error)));
+  });
+};
+
 export const getAllCartas = () => {
   return new Promise((resolve, reject) => {
     return instance

@@ -55,10 +55,8 @@ ReactDOM.render(
 );
 
 // TO DO
-// Mostrar mensagem de carta reservada
 // Filtrar cartas reservadas
 // Mostrar dados de quem reservou
 // Autenticação
 // Tooltip ao realizar ações
 // Formatar valores do front
-// Remover pessoa interessada

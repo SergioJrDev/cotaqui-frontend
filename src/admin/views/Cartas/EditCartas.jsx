@@ -8,7 +8,7 @@ import Card from "./../../components/Card/Card.jsx";
 import CardHeader from "./../../components/Card/CardHeader.jsx";
 import moment from "moment";
 import {
-  getSingleCarta,
+  getSingleCartaWithDetails,
   updateCarta,
   deleteCarta
 } from "../../../services/cartas";
@@ -16,6 +16,7 @@ import CartasForm from "./CartasForm";
 import { withRouter } from "react-router";
 import Button from "../../components/CustomButtons/Button";
 import CardFooter from "../../components/Card/CardFooter";
+import _get from "lodash/get";
 
 const styles = theme => ({
   cardCategoryWhite: {
@@ -77,7 +78,7 @@ class EditCards extends React.Component {
     } = this.props;
     this.setState({ isFetching: true }, async () => {
       try {
-        const { result } = await getSingleCarta(_id);
+        const { result } = await getSingleCartaWithDetails(_id);
         const { vencimento } = result;
         this.setState({
           ...result,
@@ -96,8 +97,7 @@ class EditCards extends React.Component {
   handleUpdate = () => {
     this.setState({ isFetching: true }, async () => {
       try {
-        const { response } = await updateCarta(this.state);
-        console.log("response", response);
+        await updateCarta(this.state);
         this.fetchCarta();
       } catch (error) {
         console.log("error", error);
@@ -114,7 +114,6 @@ class EditCards extends React.Component {
         const { _id } = this.state;
         const { response } = await deleteCarta({ _id });
         return this.setState({ ...stateDefault }, () => {
-          console.log("delete", response);
           this.props.history.push("/lista-de-cartas");
         });
       } catch (error) {
@@ -132,10 +131,13 @@ class EditCards extends React.Component {
   };
 
   handleRemoveInteressado = () => {
-    this.setState({
-      ...this.state,
-      interessado: {}
-    });
+    this.setState(
+      {
+        ...this.state,
+        interessado: {}
+      },
+      this.handleUpdate
+    );
   };
 
   validateForm = () => {
@@ -166,30 +168,31 @@ class EditCards extends React.Component {
       ...this.state,
       handleChange: this.handleChange
     };
-
+    console.log("th", this.state);
+    const hasInteressed = _get(this.state, "interessado.nome");
     return (
-      <CardFooter>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader color="primary">
-                <h4 className={classes.cardTitleWhite}>
-                  Editar carta contemplada
-                </h4>
-                <p className={classes.cardCategoryWhite}>
-                  Edite as informções da carta contemplada
-                </p>
-              </CardHeader>
-              <CartasForm {...sharedPropsAndMethods} />
-              <CardFooter>
-                <div>
-                  <Button
-                    onClick={this.handleUpdate}
-                    disabled={isDisabled || isFetching}
-                    color="primary"
-                  >
-                    Salvar alterações
-                  </Button>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="primary">
+              <h4 className={classes.cardTitleWhite}>
+                Editar carta contemplada
+              </h4>
+              <p className={classes.cardCategoryWhite}>
+                Edite as informções da carta contemplada
+              </p>
+            </CardHeader>
+            <CartasForm {...sharedPropsAndMethods} />
+            <CardFooter>
+              <div>
+                <Button
+                  onClick={this.handleUpdate}
+                  disabled={isDisabled || isFetching}
+                  color="primary"
+                >
+                  Salvar alterações
+                </Button>
+                {hasInteressed && (
                   <Button
                     variant="contained"
                     onClick={this.handleRemoveInteressado}
@@ -197,19 +200,19 @@ class EditCards extends React.Component {
                   >
                     Remover interessado
                   </Button>
-                </div>
-                <Button
-                  disabled={isFetching}
-                  onClick={this.handleDelete}
-                  color="secondar"
-                >
-                  Excluir Carta
-                </Button>
-              </CardFooter>
-            </Card>
-          </GridItem>
-        </GridContainer>
-      </CardFooter>
+                )}
+              </div>
+              <Button
+                disabled={isFetching}
+                onClick={this.handleDelete}
+                color="secondar"
+              >
+                Excluir Carta
+              </Button>
+            </CardFooter>
+          </Card>
+        </GridItem>
+      </GridContainer>
     );
   }
 }

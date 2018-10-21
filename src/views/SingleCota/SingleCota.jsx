@@ -75,7 +75,7 @@ class SingleCota extends React.Component {
   handleSubmit = () => {
     this.setState({ isFetching: true }, async () => {
       try {
-        const { response } = await updateCarta(this.state);
+        await updateCarta(this.state);
         this.setState({
           ...stateDefault,
           wasReserved: true

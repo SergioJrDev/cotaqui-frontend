@@ -8,8 +8,6 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import Header from "./../../components/Header/Header.jsx";
-import Footer from "./../../components/Footer/Footer.jsx";
 import Sidebar from "./../../components/Sidebar/Sidebar.jsx";
 
 import dashboardRoutes from "./../../routes/dashboard.jsx";
@@ -79,19 +77,12 @@ class App extends React.Component {
           {...rest}
         />
         <div className={classes.mainPanel} ref="mainPanel">
-          <Header
-            routes={dashboardRoutes}
-            handleDrawerToggle={this.handleDrawerToggle}
-            {...rest}
-          />
           {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
           <div className={classes.content}>
             <div className={classes.container}>
               <Component />
             </div>
           </div>
-
-          <Footer />
         </div>
       </div>
     );

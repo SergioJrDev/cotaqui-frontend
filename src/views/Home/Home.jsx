@@ -6,7 +6,6 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Section from "components/Section/Section";
 import InfoArea from "components/InfoArea/InfoArea.jsx";
-import Table from "components/Table/Table";
 
 import Chat from "@material-ui/icons/Chat";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
