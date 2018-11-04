@@ -12,6 +12,8 @@ import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import Fingerprint from "@material-ui/icons/Fingerprint";
 import { getAllCartas } from "../../services/cartas";
 import TableWithResults from "../../components/TableWithResults/TableWithResults";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.min.css";
 
 const bgImage =
   "https://www.hospitalitymarketplace.co.za/wp-content/uploads/2018/05/business.jpg";

@@ -22,6 +22,7 @@ import EditCards from "./admin/views/Cartas/EditCartas";
 import Dashboard from "./admin/layouts/Dashboard/Dashboard";
 import ListaDeCartas from "./admin/views/Cartas/ListaDeCartas";
 import ListaDeInteressados from "./admin/views/Cartas/Interessados";
+import CriarUsuario from "./admin/views/Users/CriarUsuario";
 
 var hist = createBrowserHistory();
 
@@ -52,8 +53,13 @@ ReactDOM.render(
         path="/lista-de-interessados"
         component={() => <Dashboard component={ListaDeInteressados} />}
       />
-      <Route exact path="/table" component={Admin} />
-      <Route exact path="/notifications" component={Admin} />
+      {/* <Route exact path="/table" component={Admin} /> */}
+      {/* <Route exact path="/notifications" component={Admin} /> */}
+      <Route
+        exact
+        path="/criar-usuario"
+        component={() => <Dashboard component={CriarUsuario} />}
+      />
       <Redirect to="/" />
     </Switch>
   </Router>,
@@ -61,8 +67,10 @@ ReactDOM.render(
 );
 
 // TO DO
-// Filtrar cartas reservadas
-// Mostrar dados de quem reservou
 // Autenticação
 // Tooltip ao realizar ações
 // Formatar valores do front
+// Login
+// Criação de usuário
+// Exclusão de usuário
+// Envio de e - mail

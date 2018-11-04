@@ -36,6 +36,13 @@ const dashboardRoutes = [
     icon: Person,
     component: ListaDeInteressados
   },
+  {
+    path: "/criar-usuario",
+    sidebarName: "Criar Usuário",
+    navbarName: "Criar Usuário",
+    icon: Person,
+    component: ListaDeInteressados
+  },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 
