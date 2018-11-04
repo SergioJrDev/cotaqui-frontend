@@ -168,7 +168,7 @@ class EditCards extends React.Component {
       ...this.state,
       handleChange: this.handleChange
     };
-    console.log("th", this.state);
+
     const hasInteressed = _get(this.state, "interessado.nome");
     return (
       <GridContainer>

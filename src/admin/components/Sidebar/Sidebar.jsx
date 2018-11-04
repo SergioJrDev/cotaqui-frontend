@@ -12,6 +12,15 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 
 import sidebarStyle from "./../../assets/jss/material-dashboard-react/components/sidebarStyle.jsx";
+import { LocalStorage } from "../../../services/index";
+
+const logout = prop => {
+  const { path } = prop;
+  if (path === "/login") {
+    LocalStorage.removeKey();
+  }
+  return false;
+};
 
 const Sidebar = ({ ...props }) => {
   const { classes, image, logoText, routes } = props;
@@ -28,6 +37,7 @@ const Sidebar = ({ ...props }) => {
             className={activePro + classes.item}
             activeClassName="active"
             key={key}
+            onClick={() => logout(prop)}
           >
             <ListItem button className={classes.itemLink + listItemClasses}>
               <ListItemIcon className={classes.itemIcon}>

@@ -8,10 +8,7 @@ import Routes from "./routes/index";
 ReactDOM.render(<Routes />, document.getElementById("root"));
 
 // TO DO
-// Autenticação
-// Tooltip ao realizar ações
 // Formatar valores do front
-// Login
-// Criação de usuário
 // Exclusão de usuário
 // Envio de e - mail
+// Auth

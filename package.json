@@ -10,6 +10,7 @@
     "axios": "^0.18.0",
     "chartist": "^0.11.0",
     "classnames": "2.2.6",
+    "dinero.js": "^1.4.0",
     "history": "4.7.2",
     "lodash": "^4.17.11",
     "moment": "2.22.2",

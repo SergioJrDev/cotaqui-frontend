@@ -112,7 +112,7 @@ class EditCards extends React.Component {
     this.setState({ isFetching: true }, async () => {
       try {
         const { _id } = this.state;
-        const { response } = await deleteCarta({ _id });
+        await deleteCarta({ _id });
         return this.setState({ ...stateDefault }, () => {
           this.props.history.push("/lista-de-cartas");
         });
@@ -168,7 +168,7 @@ class EditCards extends React.Component {
       ...this.state,
       handleChange: this.handleChange
     };
-    console.log("th", this.state);
+
     const hasInteressed = _get(this.state, "interessado.nome");
     return (
       <GridContainer>

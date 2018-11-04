@@ -6,7 +6,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CardHeader from "./../../components/Card/CardHeader.jsx";
 import CardBody from "../../components/Card/CardBody";
 import { getInteressados } from "../../../services/cartas";
-import TableList from "../../components/TableList/TableList";
 import ListOfInterested from "../../components/ListOfInterested/ListOfInterested";
 
 const styles = theme => ({
@@ -58,7 +57,6 @@ class ListaDeInteressados extends React.Component {
   render() {
     const { classes } = this.props;
     const { results } = this.state;
-    console.log("resul", results);
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>

@@ -55,8 +55,7 @@ class CriarCarta extends React.Component {
 
   handleSubmit = async () => {
     try {
-      const results = await submitCarta(this.state);
-      console.log("results", results);
+      await submitCarta(this.state);
       this.setState({ ...stateDefault });
     } catch (error) {
       console.log("error", error);

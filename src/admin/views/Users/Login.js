@@ -6,7 +6,6 @@ import GridItem from "../../components/Grid/GridItem";
 import GridContainer from "../../components/Grid/GridContainer";
 import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
-import moment from "moment";
 import Button from "../../components/CustomButtons/Button";
 import CardFooter from "../../components/Card/CardFooter";
 import UserForm from "./UserForm";

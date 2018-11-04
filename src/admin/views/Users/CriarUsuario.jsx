@@ -6,8 +6,6 @@ import GridItem from "../../components/Grid/GridItem";
 import GridContainer from "../../components/Grid/GridContainer";
 import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
-import moment from "moment";
-import { submitCarta } from "../../../services/cartas";
 import Button from "../../components/CustomButtons/Button";
 import CardFooter from "../../components/Card/CardFooter";
 import UserForm from "./UserForm";
@@ -61,7 +59,6 @@ class CriarUsuario extends React.Component {
           const { isSubmiting, ...user } = this.state;
           await CreateUser(user);
           toast.success("Usuário criado com sucesso.");
-          console.log("state default", stateDefault);
           this.setState({ ...stateDefault });
         } catch (error) {
           toast.error("Erro ao criar usuário");

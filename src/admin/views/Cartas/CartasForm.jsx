@@ -35,7 +35,6 @@ const styles = theme => ({
 
 class CartasForm extends React.Component {
   render() {
-    console.log(this.props);
     const hasInteressed = _get(this.props, "interessado.nome", false);
     return (
       <div>

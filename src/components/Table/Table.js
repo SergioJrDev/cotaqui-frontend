@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 import _get from "lodash/get";
+import formatAndDisplay from "../../utils/formatAndDisplay";
 
 const styles = theme => ({
   root: {
@@ -50,10 +51,10 @@ const TableData = props => {
                 <TableCell component="th" scope="row">
                   {row.administradora}
                 </TableCell>
-                <TableCell>{row.credito}</TableCell>
-                <TableCell>{row.entrada}</TableCell>
+                <TableCell>{formatAndDisplay(row.credito)}</TableCell>
+                <TableCell>{formatAndDisplay(row.entrada)}</TableCell>
                 <TableCell>{row.parcelas}</TableCell>
-                <TableCell>{row.valorDasParcelas}</TableCell>
+                <TableCell>{formatAndDisplay(row.valorDasParcelas)}</TableCell>
                 <TableCell>
                   {moment(row.vencimento).format("DD/MM/YYYY")}
                 </TableCell>

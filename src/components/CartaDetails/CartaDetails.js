@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import formatAndDisplay from "../../utils/formatAndDisplay";
 
 const borderBottom = {
   borderBottom: "1px solid #e0e0e0",
@@ -28,7 +29,7 @@ const CartaDetails = ({
       <div style={borderBottom}>
         <span>Crédito:</span>
         <p>
-          <strong>{credito}</strong>
+          <strong>{formatAndDisplay(credito)}</strong>
         </p>
       </div>
     )}
@@ -36,7 +37,7 @@ const CartaDetails = ({
       <div style={borderBottom}>
         <span>Entrada:</span>
         <p>
-          <strong>{entrada}</strong>
+          <strong>{formatAndDisplay(entrada)}</strong>
         </p>
       </div>
     )}
@@ -52,7 +53,7 @@ const CartaDetails = ({
       <div style={borderBottom}>
         <span>Valor das Parcelas</span>
         <p>
-          <strong>{valorDasParcelas}</strong>
+          <strong>{formatAndDisplay(valorDasParcelas)}</strong>
         </p>
       </div>
     )}
