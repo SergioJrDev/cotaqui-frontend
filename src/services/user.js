@@ -41,3 +41,15 @@ const postPromiseFactory = async (endpoint, args = {}, method = "post") => {
 export const CreateUser = async user => {
   return await postPromiseFactory("create-user", user);
 };
+
+export const Login = user => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/login`, user);
+      console.log("okkkk");
+      return resolve(response);
+    } catch (error) {
+      return reject(error.response.data);
+    }
+  });
+};

@@ -39,16 +39,18 @@ class UserForm extends React.Component {
       <div>
         <CardBody>
           <GridContainer>
-            <GridItem xs={12} sm={12} md={12}>
-              <TextField
-                label="Nome"
-                id="name"
-                fullWidth
-                value={this.props.name}
-                className="input-space"
-                onChange={this.props.handleChange}
-              />
-            </GridItem>
+            {!this.props.hideName && (
+              <GridItem xs={12} sm={12} md={12}>
+                <TextField
+                  label="Nome"
+                  id="name"
+                  fullWidth
+                  value={this.props.name}
+                  className="input-space"
+                  onChange={this.props.handleChange}
+                />
+              </GridItem>
+            )}
             <GridItem xs={12} sm={12} md={12}>
               <TextField
                 label="E-mail"

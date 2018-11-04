@@ -959,3 +959,12 @@ button.slick-arrow.slick-next {
 
 .input-space {
   margin-bottom: 30px !important; }
+
+.login-page {
+  background: #f1f1f1;
+  height: 100vh;
+  display: flex; }
+
+.login-container {
+  max-width: 470px;
+  margin: auto; }

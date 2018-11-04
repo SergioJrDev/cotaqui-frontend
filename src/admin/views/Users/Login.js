@@ -7,13 +7,13 @@ import GridContainer from "../../components/Grid/GridContainer";
 import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
 import moment from "moment";
-import { submitCarta } from "../../../services/cartas";
 import Button from "../../components/CustomButtons/Button";
 import CardFooter from "../../components/Card/CardFooter";
 import UserForm from "./UserForm";
-import { CreateUser } from "../../../services/user";
+import { Login as LoginService } from "../../../services/user";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { LocalStorage } from "../../../services/index";
 
 const styles = theme => ({
   cardCategoryWhite: {
@@ -40,13 +40,12 @@ const styles = theme => ({
 });
 
 const stateDefault = {
-  name: "",
   email: "",
   password: "",
   isSubmiting: false
 };
 
-class CriarUsuario extends React.Component {
+class Login extends React.Component {
   state = {
     ...stateDefault
   };
@@ -58,13 +57,13 @@ class CriarUsuario extends React.Component {
       },
       async () => {
         try {
-          const { isSubmiting, ...user } = this.state;
-          await CreateUser(user);
-          toast.success("Usuário criado com sucesso.");
-          console.log("state default", stateDefault);
-          this.setState({ ...stateDefault });
+          const { email, password } = this.state;
+          const { data } = await LoginService({ email, password });
+          await LocalStorage.setKey({ ...data, email });
+          this.props.history.push("/lista-de-cartas");
         } catch (error) {
-          toast.error("Erro ao criar usuário");
+          const { errorMessage = "Erro ao fazer login" } = error;
+          toast.error(errorMessage);
           this.setState({ ...stateDefault });
         }
       }
@@ -77,9 +76,9 @@ class CriarUsuario extends React.Component {
   };
 
   validateForm = () => {
-    const { name, password, email, isSubmiting } = this.state;
+    const { password, email, isSubmiting } = this.state;
 
-    return !name || !email || !password || isSubmiting;
+    return !email || !password || isSubmiting;
   };
 
   render() {
@@ -90,33 +89,35 @@ class CriarUsuario extends React.Component {
       handleChange: this.handleChange
     };
     return (
-      <div>
-        <ToastContainer />
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader color="primary">
-                <h4 className={classes.cardTitleWhite}>Criar novo usuário</h4>
-                <p className={classes.cardCategoryWhite}>
-                  Preencha as informções do novo usuário
-                </p>
-              </CardHeader>
-              <UserForm {...sharedPropsAndMethods} />
-              <CardFooter>
-                <Button
-                  onClick={this.handleSubmit}
-                  disabled={isDisabled}
-                  color="primary"
-                >
-                  Criar
-                </Button>
-              </CardFooter>
-            </Card>
-          </GridItem>
-        </GridContainer>
+      <div className="login-page login">
+        <div className="login-container">
+          <ToastContainer />
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={12}>
+              <Card>
+                <CardHeader color="primary">
+                  <h4 className={classes.cardTitleWhite}>Fazer Login</h4>
+                  <p className={classes.cardCategoryWhite}>
+                    Entre com seu e-mail e senha.
+                  </p>
+                </CardHeader>
+                <UserForm {...sharedPropsAndMethods} hideName />
+                <CardFooter>
+                  <Button
+                    onClick={this.handleSubmit}
+                    disabled={isDisabled}
+                    color="primary"
+                  >
+                    Entrar
+                  </Button>
+                </CardFooter>
+              </Card>
+            </GridItem>
+          </GridContainer>
+        </div>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(CriarUsuario);
+export default withStyles(styles)(Login);
