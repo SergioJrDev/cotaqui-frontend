@@ -8,7 +8,11 @@ import Section from "components/Section/Section";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputMask from "./../../utils/InputMask";
-import { getSingleCarta, updateCarta } from "../../services/cartas";
+import {
+  getSingleCarta,
+  updateCarta,
+  submitEmail
+} from "../../services/cartas";
 import CartaDetails from "../../components/CartaDetails/CartaDetails";
 import _get from "lodash/get";
 import TableWithResults from "../../components/TableWithResults/TableWithResults";
@@ -76,10 +80,19 @@ class SingleCota extends React.Component {
     this.setState({ isFetching: true }, async () => {
       try {
         await updateCarta(this.state);
-        this.setState({
-          ...stateDefault,
-          wasReserved: true
-        });
+        this.setState(
+          {
+            ...stateDefault,
+            wasReserved: true
+          },
+          () => {
+            submitEmail({
+              to: "sergioamjr91@gmail.com",
+              message: "Nova carta registrada no site.",
+              subject: "Carta Registrada. "
+            }).catch(error => console.log("Erro ao enviar e-mail", error));
+          }
+        );
       } catch (error) {
         console.log("error", error);
         this.setState({

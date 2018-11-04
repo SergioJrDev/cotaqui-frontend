@@ -11,6 +11,8 @@ import { submitCarta } from "../../../services/cartas";
 import CartasForm from "./CartasForm";
 import Button from "../../components/CustomButtons/Button";
 import CardFooter from "../../components/Card/CardFooter";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const styles = theme => ({
   cardCategoryWhite: {
@@ -56,6 +58,7 @@ class CriarCarta extends React.Component {
   handleSubmit = async () => {
     try {
       await submitCarta(this.state);
+      toast.success("Carta criada com sucesso.");
       this.setState({ ...stateDefault });
     } catch (error) {
       console.log("error", error);
@@ -96,6 +99,7 @@ class CriarCarta extends React.Component {
     };
     return (
       <div>
+        <ToastContainer />
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>

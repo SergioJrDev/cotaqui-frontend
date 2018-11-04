@@ -70,8 +70,10 @@ class ListaDeCartas extends React.Component {
               </p>
             </CardHeader>
             <CardBody>
-              {Object.values(results).length > 0 && (
+              {Object.values(results).length > 0 ? (
                 <TableList rows={Object.values(results)} />
+              ) : (
+                <p className="a-center">Nenhuma carta cadastrada ainda.</p>
               )}
             </CardBody>
           </Card>

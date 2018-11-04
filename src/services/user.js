@@ -1,24 +1,11 @@
 import axios from "axios";
 import CONFIG from "./../APP_CONFIG";
+import promiseFactory from "../utils/requestFactory";
 
 const BASE_URL = CONFIG.BACKEND;
 
-const formatResponse = ({ data }) => {
-  return data;
-};
-
-const formatCatch = error => {
-  return error;
-};
-
-const postPromiseFactory = async (endpoint, args = {}, method = "post") => {
-  return axios[method](`${BASE_URL}/${endpoint}`, { ...args })
-    .then(response => formatResponse(response))
-    .catch(error => formatCatch(error));
-};
-
 export const CreateUser = async user => {
-  return await postPromiseFactory("create-user", user);
+  return await promiseFactory("create-user", user, "post");
 };
 
 export const Login = user => {

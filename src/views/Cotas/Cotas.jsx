@@ -34,7 +34,11 @@ class AllCotas extends React.Component {
                 <GridItem xs={12}>
                   <h1 className={classes.title}>Cartas contempladas</h1>
                   <p>Sessão de veículos</p>
-                  {results.length > 0 && <Table rows={results} />}
+                  {results.length > 0 ? (
+                    <Table rows={results} />
+                  ) : (
+                    <p className="a-center">Nenhuma carta cadastrada ainda.</p>
+                  )}
                 </GridItem>
               </GridContainer>
             </div>

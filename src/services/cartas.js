@@ -1,72 +1,33 @@
-import instance from "./config";
-
-const formatReponse = ({ data }) => {
-  console.log("response", data);
-  return data;
-};
-
-const formatCatch = ({ response }) => {
-  console.log("catch", response);
-  return response.data || response;
-};
+import promiseFactory from "../utils/requestFactory";
 
 export const submitCarta = params => {
-  return instance
-    .post("/add-nova-carta", params)
-    .then(formatReponse)
-    .catch(formatCatch);
+  return promiseFactory("add-nova-carta", params, "post");
 };
 
 export const getSingleCarta = _id => {
-  return new Promise((resolve, reject) => {
-    return instance
-      .get("/get-single-carta", { params: { _id } })
-      .then(response => resolve(formatReponse(response)))
-      .catch(error => reject(formatCatch(error)));
-  });
+  return promiseFactory("get-single-carta", { _id }, "get", false);
 };
 
 export const getSingleCartaWithDetails = _id => {
-  return new Promise((resolve, reject) => {
-    return instance
-      .get("/get-single-with-details", { params: { _id } })
-      .then(response => resolve(formatReponse(response)))
-      .catch(error => reject(formatCatch(error)));
-  });
+  return promiseFactory("get-single-with-details", { _id }, "get");
 };
 
 export const getAllCartas = () => {
-  return new Promise((resolve, reject) => {
-    return instance
-      .get("/get-all-cartas")
-      .then(response => resolve(formatReponse(response)))
-      .catch(error => reject(formatCatch(error)));
-  });
+  return promiseFactory("get-all-cartas", {}, "get", false);
 };
 
 export const updateCarta = params => {
-  return new Promise((resolve, reject) => {
-    return instance
-      .put("/atualizar-carta", { ...params })
-      .then(response => resolve(formatReponse(response)))
-      .catch(error => reject(formatCatch(error)));
-  });
+  return promiseFactory("atualizar-carta", params, "put");
 };
 
 export const deleteCarta = params => {
-  return new Promise((resolve, reject) => {
-    return instance
-      .delete("/delete-carta", { params })
-      .then(response => resolve(formatReponse(response)))
-      .catch(error => reject(formatCatch(error)));
-  });
+  return promiseFactory("delete-carta", params, "delete");
 };
 
 export const getInteressados = () => {
-  return new Promise((resolve, reject) => {
-    return instance
-      .get("/get-interested")
-      .then(response => resolve(formatReponse(response)))
-      .catch(error => reject(formatCatch(error)));
-  });
+  return promiseFactory("get-interested", {}, "get");
+};
+
+export const submitEmail = params => {
+  return promiseFactory("send", params, "post");
 };

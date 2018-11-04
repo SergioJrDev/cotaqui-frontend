@@ -68,8 +68,10 @@ class ListaDeInteressados extends React.Component {
               </p> */}
             </CardHeader>
             <CardBody>
-              {Object.values(results).length > 0 && (
+              {Object.values(results).length > 0 ? (
                 <ListOfInterested rows={Object.values(results)} />
+              ) : (
+                <p className="a-center">Nenhum interessado ainda.</p>
               )}
             </CardBody>
           </Card>

@@ -17,6 +17,8 @@ import { withRouter } from "react-router";
 import Button from "../../components/CustomButtons/Button";
 import CardFooter from "../../components/Card/CardFooter";
 import _get from "lodash/get";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const styles = theme => ({
   cardCategoryWhite: {
@@ -98,6 +100,7 @@ class EditCards extends React.Component {
     this.setState({ isFetching: true }, async () => {
       try {
         await updateCarta(this.state);
+        toast.success("Carta atualizada com sucesso.");
         this.fetchCarta();
       } catch (error) {
         console.log("error", error);
@@ -113,6 +116,7 @@ class EditCards extends React.Component {
       try {
         const { _id } = this.state;
         await deleteCarta({ _id });
+        toast.success("Carta deletada com sucesso.");
         return this.setState({ ...stateDefault }, () => {
           this.props.history.push("/lista-de-cartas");
         });
@@ -172,6 +176,7 @@ class EditCards extends React.Component {
     const hasInteressed = _get(this.state, "interessado.nome");
     return (
       <GridContainer>
+        <ToastContainer />
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">

@@ -968,3 +968,6 @@ button.slick-arrow.slick-next {
 .login-container {
   max-width: 470px;
   margin: auto; }
+
+.a-center {
+  text-align: center; }

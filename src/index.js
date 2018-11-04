@@ -8,7 +8,6 @@ import Routes from "./routes/index";
 ReactDOM.render(<Routes />, document.getElementById("root"));
 
 // TO DO
-// Formatar valores do front
 // Exclusão de usuário
 // Envio de e - mail
 // Auth
