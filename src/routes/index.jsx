@@ -1,11 +1,5 @@
 import React from "react";
-import { createBrowserHistory } from "history";
-import {
-  HashRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import Home from "views/Home/Home";
 import Cartas from "views/Cotas/Cotas";
@@ -19,10 +13,8 @@ import CriarUsuario from "./../admin/views/Users/CriarUsuario";
 import Login from "../admin/views/Users/Login";
 import HOC from "../admin/HOC";
 
-var hist = createBrowserHistory();
-
 const Routes = () => (
-  <Router history={hist}>
+  <HashRouter>
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/cartas-contempladas/:id" component={SingleCotas} />
@@ -56,7 +48,7 @@ const Routes = () => (
       <Route exact path="/login" component={Login} />
       <Redirect to="/" />
     </Switch>
-  </Router>
+  </HashRouter>
 );
 
 export default Routes;

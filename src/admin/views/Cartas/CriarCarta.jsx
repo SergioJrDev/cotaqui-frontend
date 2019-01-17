@@ -90,6 +90,10 @@ class CriarCarta extends React.Component {
     );
   };
 
+  onBackHandler = () => {
+    this.props.history.goBack();
+  };
+
   render() {
     const { classes } = this.props;
     const isDisabled = this.validateForm();
@@ -120,6 +124,7 @@ class CriarCarta extends React.Component {
                 >
                   Criar
                 </Button>
+                <Button onClick={this.onBackHandler}>Cancelar</Button>
               </CardFooter>
             </Card>
           </GridItem>

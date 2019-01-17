@@ -27,7 +27,7 @@ class CurrencyInput_ extends React.Component {
     const { onChange, returnAsString, label, ...otherProps } = this.props;
 
     return (
-      <div className="MuiFormControl-root-221 MuiFormControl-fullWidth-224 input-space">
+      <div className="custom-input input-space">
         {label && (
           <label
             className="MuiFormLabel-root-368 MuiFormLabel-filled-372 MuiInputLabel-root-363 MuiInputLabel-formControl-364 MuiInputLabel-animated-367 MuiInputLabel-shrink-366"

@@ -45,7 +45,7 @@ class CartasForm extends React.Component {
                 label="Administradora"
                 id="administradora"
                 fullWidth
-                disabled={hasInteressed}
+                disabled={!!hasInteressed}
                 value={this.props.administradora}
                 className="input-space"
                 onChange={this.props.handleChange}
@@ -55,7 +55,7 @@ class CartasForm extends React.Component {
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
               <CurrencyInput
-                disabled={hasInteressed}
+                disabled={!!hasInteressed}
                 label="Crédito (R$)"
                 value={this.props.credito}
                 onChange={value => {
@@ -67,7 +67,7 @@ class CartasForm extends React.Component {
             </GridItem>
             <GridItem xs={12} sm={12} md={6}>
               <CurrencyInput
-                disabled={hasInteressed}
+                disabled={!!hasInteressed}
                 label="Entrada (R$)"
                 value={this.props.entrada}
                 onChange={value => {
@@ -90,7 +90,7 @@ class CartasForm extends React.Component {
                   <TextField
                     id="parcelas"
                     fullWidth
-                    disabled={hasInteressed}
+                    disabled={!!hasInteressed}
                     type="number"
                     value={this.props.parcelas}
                     onChange={this.props.handleChange}
@@ -99,16 +99,16 @@ class CartasForm extends React.Component {
               </div>
             </GridItem>
             <GridItem xs={12} sm={12} md={6}>
-                <CurrencyInput
-                  label="Valor das parcelas"
-                  disabled={hasInteressed}
-                  value={this.props.valorDasParcelas}
-                  onChange={value => {
-                    this.props.handleChange({
-                      target: { value, name: "valorDasParcelas" }
-                    });
-                  }}
-                />
+              <CurrencyInput
+                label="Valor das parcelas"
+                disabled={!!hasInteressed}
+                value={this.props.valorDasParcelas}
+                onChange={value => {
+                  this.props.handleChange({
+                    target: { value, name: "valorDasParcelas" }
+                  });
+                }}
+              />
             </GridItem>
           </GridContainer>
           <GridContainer>
@@ -117,7 +117,7 @@ class CartasForm extends React.Component {
                 label="Prox Vencimento"
                 id="vencimento"
                 fullWidth
-                disabled={hasInteressed}
+                disabled={!!hasInteressed}
                 value={this.props.vencimento}
                 className="input-space"
                 onChange={this.props.handleChange}
@@ -128,7 +128,7 @@ class CartasForm extends React.Component {
               <TextField
                 label="Observações"
                 id="observacoes"
-                disabled={hasInteressed}
+                disabled={!!hasInteressed}
                 value={this.props.observacoes}
                 className="input-space"
                 onChange={this.props.handleChange}

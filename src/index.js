@@ -8,6 +8,4 @@ import Routes from "./routes/index";
 ReactDOM.render(<Routes />, document.getElementById("root"));
 
 // TO DO
-// Exclusão de usuário
-// Envio de e - mail
-// Auth
+// Editar/Excluir usuário

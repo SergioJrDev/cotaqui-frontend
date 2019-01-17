@@ -164,6 +164,10 @@ class EditCards extends React.Component {
     );
   };
 
+  onBackHandler = () => {
+    this.props.history.goBack();
+  };
+
   render() {
     const { classes } = this.props;
     const isDisabled = this.validateForm();
@@ -197,6 +201,7 @@ class EditCards extends React.Component {
                 >
                   Salvar alterações
                 </Button>
+
                 {hasInteressed && (
                   <Button
                     color="warning"
@@ -206,6 +211,9 @@ class EditCards extends React.Component {
                     Remover interessado
                   </Button>
                 )}
+                <Button onClick={this.onBackHandler} disabled={isFetching}>
+                  Cancelar
+                </Button>
               </div>
               <Button
                 disabled={isFetching}
