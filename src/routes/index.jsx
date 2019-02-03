@@ -13,6 +13,7 @@ import CriarUsuario from './../admin/views/Users/CriarUsuario';
 import Login from '../admin/views/Users/Login';
 import HOC from '../admin/HOC';
 import Parceiro from '../views/Parceiro/Parceiro';
+import ParceiroList from '../admin/views/Parceiro/ParceiroList';
 
 const Routes = () => (
   <HashRouter>
@@ -45,6 +46,12 @@ const Routes = () => (
         exact
         path='/criar-usuario'
         component={() => <HOC component={CriarUsuario} />}
+      />
+
+      <Route
+        exact
+        path='/parceiros'
+        component={() => <HOC component={ParceiroList} />}
       />
 
       <Route exact path='/login' component={Login} />

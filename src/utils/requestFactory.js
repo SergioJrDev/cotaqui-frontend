@@ -38,8 +38,9 @@ const promiseFactory = (
       const data = _get(response, 'data', false);
       return resolve(data || response);
     } catch (error) {
-      throw Error(error);
-      // return reject(error);
+      // return reject(e)
+      // throw Error(error);
+      return reject(error);
     }
   });
 };
