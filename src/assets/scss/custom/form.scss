@@ -33,3 +33,31 @@
 .a-center {
   text-align: center;
 }
+
+.color {
+  &-sucess {
+    color: #599667;
+  }
+  &-white {
+    color: #fff;
+  }
+}
+
+.background {
+  &-success {
+    background: #599667;
+  }
+}
+
+.br-5 {
+  border-radius: 5px;
+}
+
+.p {
+  &-5 {
+    padding: 5px;
+  }
+  &-15 {
+    padding: 15px;
+  }
+}

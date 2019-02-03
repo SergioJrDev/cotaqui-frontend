@@ -1,36 +1,41 @@
 /*eslint-disable*/
-import React from "react";
+import React from 'react';
 // react components for routing our app without refresh
-import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Tooltip from "@material-ui/core/Tooltip";
+import withStyles from '@material-ui/core/styles/withStyles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // @material-ui/icons
-import { Apps, CloudDownload } from "@material-ui/icons";
+import { Apps, CloudDownload } from '@material-ui/icons';
 
 // core components
-import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
-import Button from "components/CustomButtons/Button.jsx";
+import CustomDropdown from 'components/CustomDropdown/CustomDropdown.jsx';
+import Button from 'components/CustomButtons/Button.jsx';
 
-import headerLinksStyle from "assets/jss/material-kit-react/components/headerLinksStyle.jsx";
+import headerLinksStyle from 'assets/jss/material-kit-react/components/headerLinksStyle.jsx';
 
 function HeaderLinks({ ...props }) {
   const { classes } = props;
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
-        <NavLink className={classes.navLink} to="/cartas-contempladas">
+        <NavLink className={classes.navLink} to='/cartas-contempladas'>
           Comprar cotas de Imóveis
         </NavLink>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <NavLink className={classes.navLink} to="/cartas-contempladas">
+        <NavLink className={classes.navLink} to='/cartas-contempladas'>
           Comprar cotas de Veículos
+        </NavLink>
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <NavLink className={classes.navLink} to='/seja-parceiro'>
+          Seja Parceiro
         </NavLink>
       </ListItem>
     </List>
