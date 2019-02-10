@@ -14,11 +14,13 @@ import Login from '../admin/views/Users/Login';
 import HOC from '../admin/HOC';
 import Parceiro from '../views/Parceiro/Parceiro';
 import ParceiroList from '../admin/views/Parceiro/ParceiroList';
+import VenderCota from '../views/VenderCota/VenderCota';
 
 const Routes = () => (
   <HashRouter>
     <Switch>
       <Route exact path='/' component={Home} />
+      <Route exact path='/vender-cota' component={VenderCota} />
       <Route exact path='/seja-parceiro' component={Parceiro} />
       <Route exact path='/cartas-contempladas/:id' component={SingleCotas} />
       <Route exact path='/cartas-contempladas' component={Cartas} />

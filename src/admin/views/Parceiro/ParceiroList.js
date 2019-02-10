@@ -5,8 +5,6 @@ import Card from './../../components/Card/Card.jsx';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CardHeader from './../../components/Card/CardHeader.jsx';
 import CardBody from '../../components/Card/CardBody';
-import TableList from '../../components/TableList/TableList';
-
 import { getParceiro, deleteParceiro } from '../../../services/parceiro';
 import ParceiroTable from '../../components/ParceiroTable/ParceiroTable';
 
@@ -58,10 +56,8 @@ class ParceiroList extends React.Component {
   };
 
   deleteParceiro = async _id => {
-    console.log({ _id });
     try {
-      const response = await deleteParceiro({ _id });
-      console.log('response', response);
+      await deleteParceiro({ _id });
       this.fetchAllCartas();
     } catch (error) {}
   };

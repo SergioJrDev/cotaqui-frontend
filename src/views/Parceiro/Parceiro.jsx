@@ -8,14 +8,6 @@ import Section from 'components/Section/Section';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import InputMask from './../../utils/InputMask';
-import {
-  getSingleCarta,
-  updateCarta,
-  submitEmail
-} from '../../services/cartas';
-import CartaDetails from '../../components/CartaDetails/CartaDetails';
-import _get from 'lodash/get';
-import TableWithResults from '../../components/TableWithResults/TableWithResults';
 import { createParceiro } from '../../services/parceiro';
 
 const stateDefault = {

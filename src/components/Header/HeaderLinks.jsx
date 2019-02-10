@@ -38,6 +38,11 @@ function HeaderLinks({ ...props }) {
           Seja Parceiro
         </NavLink>
       </ListItem>
+      <ListItem className={classes.listItem}>
+        <NavLink className={classes.navLink} to='/vender-cota'>
+          Vender Cota
+        </NavLink>
+      </ListItem>
     </List>
   );
 }
