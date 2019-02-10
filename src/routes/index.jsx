@@ -15,6 +15,7 @@ import HOC from '../admin/HOC';
 import Parceiro from '../views/Parceiro/Parceiro';
 import ParceiroList from '../admin/views/Parceiro/ParceiroList';
 import VenderCota from '../views/VenderCota/VenderCota';
+import VendaList from '../admin/views/VendaList/VendaList';
 
 const Routes = () => (
   <HashRouter>
@@ -27,33 +28,39 @@ const Routes = () => (
       <Route
         exact
         path='/criar-carta'
-        component={() => <HOC component={CriarCarta} />}
+        component={props => <HOC component={CriarCarta} {...props} />}
       />
       <Route
         exact
         path='/lista-de-cartas/:_id'
-        component={() => <HOC component={EditCards} />}
+        component={props => <HOC component={EditCards} {...props} />}
       />
       <Route
         exact
         path='/lista-de-cartas'
-        component={() => <HOC component={ListaDeCartas} />}
+        component={props => <HOC component={ListaDeCartas} {...props} />}
       />
       <Route
         exact
         path='/lista-de-interessados'
-        component={() => <HOC component={ListaDeInteressados} />}
+        component={props => <HOC component={ListaDeInteressados} {...props} />}
       />
       <Route
         exact
         path='/criar-usuario'
-        component={() => <HOC component={CriarUsuario} />}
+        component={props => <HOC component={CriarUsuario} {...props} />}
       />
 
       <Route
         exact
         path='/parceiros'
-        component={() => <HOC component={ParceiroList} />}
+        component={props => <HOC component={ParceiroList} {...props} />}
+      />
+
+      <Route
+        exact
+        path='/lista-de-vendas'
+        component={props => <HOC component={VendaList} {...props} />}
       />
 
       <Route exact path='/login' component={Login} />

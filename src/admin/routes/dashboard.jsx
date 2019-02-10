@@ -38,6 +38,13 @@ const dashboardRoutes = [
     component: null
   },
   {
+    path: '/lista-de-vendas',
+    sidebarName: 'Lista de Vendas',
+    navbarName: 'Lista de Vendas',
+    icon: Person,
+    component: null
+  },
+  {
     path: '/login',
     sidebarName: 'Sair',
     navbarName: 'Sair',
