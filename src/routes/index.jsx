@@ -16,6 +16,7 @@ import Parceiro from '../views/Parceiro/Parceiro';
 import ParceiroList from '../admin/views/Parceiro/ParceiroList';
 import VenderCota from '../views/VenderCota/VenderCota';
 import VendaList from '../admin/views/VendaList/VendaList';
+import VendaSingle from '../admin/views/VendaSingle/VendaSingle';
 
 const Routes = () => (
   <HashRouter>
@@ -64,6 +65,11 @@ const Routes = () => (
       />
 
       <Route exact path='/login' component={Login} />
+      <Route
+        exact
+        path='/venda/:_id'
+        component={props => <HOC component={VendaSingle} {...props} />}
+      />
       <Redirect to='/' />
     </Switch>
   </HashRouter>

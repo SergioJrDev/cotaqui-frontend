@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import InputMask from './../../utils/InputMask';
 import { createSale } from '../../services/parceiro';
 import CurrencyInput from '../../components/CurrencyInput/CurrencyInput';
+import moment from 'moment'
 
 const stateDefault = {
   isSubmiting: false,
@@ -24,7 +25,7 @@ const stateDefault = {
     valorPretendido: 0,
     grupo: 'Grupo 1',
     cota: 'Cota 1',
-    contemplado: true,
+    contemplado: '',
     entrada: 0,
     vencimento: '2020-01-01',
     responsavel: {
@@ -242,8 +243,22 @@ class VenderCota extends React.Component {
                           </GridItem>
                           <GridItem xs={6}>
                             <CurrencyInput
+                              id='parcelasPagas'
+                              label='Parcelas Pagas'
+                              name='parcelasPagas'
+                              className={classes.textField}
+                              value={this.state.venda.parcelasPagas}
+                              onChange={value =>
+                                this.handleChange({
+                                  target: { name: 'parcelasPagas', value }
+                                })
+                              }
+                            />
+                          </GridItem>
+                          <GridItem xs={6}>
+                            <CurrencyInput
                               id='valorDasParcelas'
-                              label='valorDasParcelas'
+                              label='Valor das Parcelas'
                               name='valorDasParcelas'
                               className={classes.textField}
                               value={this.state.venda.valorDasParcelas}
@@ -257,7 +272,7 @@ class VenderCota extends React.Component {
                           <GridItem xs={6}>
                             <CurrencyInput
                               id='valorPretendido'
-                              label='valorPretendido'
+                              label='Valor Pretendido'
                               name='valorPretendido'
                               className={classes.textField}
                               value={this.state.venda.valorPretendido}
@@ -271,7 +286,7 @@ class VenderCota extends React.Component {
                           <GridItem xs={6}>
                             <TextField
                               id='grupo'
-                              label='grupo'
+                              label='Grupo'
                               name='grupo'
                               className={classes.textField}
                               value={this.state.venda.grupo}
@@ -283,7 +298,7 @@ class VenderCota extends React.Component {
                           <GridItem xs={6}>
                             <TextField
                               id='cota'
-                              label='cota'
+                              label='Cota'
                               name='cota'
                               className={classes.textField}
                               value={this.state.venda.cota}
@@ -293,21 +308,21 @@ class VenderCota extends React.Component {
                             />
                           </GridItem>
                           <GridItem xs={6}>
-                            {/* <TextField
+                            <TextField
                               id='contemplado'
-                              label='contemplado'
+                              label='Contemplado'
                               name='contemplado'
                               className={classes.textField}
-                              value={}
+                              value={this.state.venda.contemplado}
                               onChange={this.handleChange}
                               margin='normal'
                               fullWidth
-                            /> */}
+                            />
                           </GridItem>
                           <GridItem xs={6}>
                             <TextField
                               id='entrada'
-                              label='entrada'
+                              label='Entrada'
                               name='entrada'
                               className={classes.textField}
                               value={this.state.venda.entrada}
@@ -319,11 +334,17 @@ class VenderCota extends React.Component {
                           <GridItem xs={6}>
                             <TextField
                               id='vencimento'
-                              label='vencimento'
+                              label='Vencimento'
                               name='vencimento'
                               className={classes.textField}
                               value={this.state.venda.vencimento}
-                              onChange={this.handleChange}
+                              onChange={e => {
+                                this.handleChange({
+                                  target: {
+                                    name: e.target.name, value: moment(e.target.value).utc().format('YYYY-MM-DD')
+                                  }
+                                });
+                              }}
                               margin='normal'
                               fullWidth
                               type='date'

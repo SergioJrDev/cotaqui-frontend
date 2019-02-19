@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CardHeader from './../../components/Card/CardHeader.jsx';
 import CardBody from '../../components/Card/CardBody';
 import { getSales, deleteSale } from '../../../services/parceiro';
-import ParceiroTable from '../../components/ParceiroTable/ParceiroTable';
+import ParceiroTable from '../../components/ParceiroTable/VendaTablee';
 
 const styles = theme => ({
   cardCategoryWhite: {

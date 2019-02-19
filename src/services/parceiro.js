@@ -23,3 +23,10 @@ export const getSales = async () => {
 export const deleteSale = async _id => {
   return await promiseFactory('delete-venda', _id, 'delete');
 };
+
+export const getSingleSale = async _id => {
+  console.log(_id);
+  return await promiseFactory('get-singe-venda', { _id }, 'get');
+};
+
+// get-singe-venda
