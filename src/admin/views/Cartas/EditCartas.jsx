@@ -1,41 +1,41 @@
-import React from "react";
+import React from 'react';
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 // core components
-import GridItem from "./../../components/Grid/GridItem.jsx";
-import GridContainer from "./../../components/Grid/GridContainer.jsx";
-import Card from "./../../components/Card/Card.jsx";
-import CardHeader from "./../../components/Card/CardHeader.jsx";
-import moment from "moment";
+import GridItem from './../../components/Grid/GridItem.jsx';
+import GridContainer from './../../components/Grid/GridContainer.jsx';
+import Card from './../../components/Card/Card.jsx';
+import CardHeader from './../../components/Card/CardHeader.jsx';
+import moment from 'moment';
 import {
   getSingleCartaWithDetails,
   updateCarta,
   deleteCarta
-} from "../../../services/cartas";
-import CartasForm from "./CartasForm";
-import { withRouter } from "react-router";
-import Button from "../../components/CustomButtons/Button";
-import CardFooter from "../../components/Card/CardFooter";
-import _get from "lodash/get";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+} from '../../../services/cartas';
+import CartasForm from './CartasForm';
+import { withRouter } from 'react-router';
+import Button from '../../components/CustomButtons/Button';
+import CardFooter from '../../components/Card/CardFooter';
+import _get from 'lodash/get';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
   cardCategoryWhite: {
-    color: "rgba(255,255,255,.62)",
-    margin: "0",
-    fontSize: "14px",
-    marginTop: "0",
-    marginBottom: "0"
+    color: 'rgba(255,255,255,.62)',
+    margin: '0',
+    fontSize: '14px',
+    marginTop: '0',
+    marginBottom: '0'
   },
   cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
+    color: '#FFFFFF',
+    marginTop: '0px',
+    minHeight: 'auto',
+    fontWeight: '300',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none"
+    marginBottom: '3px',
+    textDecoration: 'none'
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -45,15 +45,15 @@ const styles = theme => ({
 });
 
 const stateDefault = {
-  type: "IMOVEL",
-  administradora: "",
-  credito: "",
-  entrada: "",
-  parcelas: "",
-  valorDasParcelas: "",
-  vencimento: moment(new Date()).format("YYYY-MM-DD"),
-  observacoes: "",
-  feitaPor: "feitapor@gmail.com",
+  type: '',
+  administradora: '',
+  credito: '',
+  entrada: '',
+  parcelas: '',
+  valorDasParcelas: '',
+  vencimento: moment(new Date()).format('YYYY-MM-DD'),
+  observacoes: '',
+  feitaPor: 'feitapor@gmail.com',
   isFetching: false
 };
 
@@ -82,13 +82,14 @@ class EditCards extends React.Component {
       try {
         const { result } = await getSingleCartaWithDetails(_id);
         const { vencimento } = result;
+        console.log(result);
         this.setState({
           ...result,
-          vencimento: vencimento ? moment(vencimento).format("YYYY-MM-DD") : "",
+          vencimento: vencimento ? moment(vencimento).format('YYYY-MM-DD') : '',
           isFetching: false
         });
       } catch (error) {
-        console.log("error", error);
+        console.log('error', error);
         this.setState({
           ...stateDefault
         });
@@ -99,11 +100,12 @@ class EditCards extends React.Component {
   handleUpdate = () => {
     this.setState({ isFetching: true }, async () => {
       try {
+        console.log('update', this.state);
         await updateCarta(this.state);
-        toast.success("Carta atualizada com sucesso.");
+        toast.success('Carta atualizada com sucesso.');
         this.fetchCarta();
       } catch (error) {
-        console.log("error", error);
+        console.log('error', error);
         this.setState({
           ...stateDefault
         });
@@ -116,12 +118,12 @@ class EditCards extends React.Component {
       try {
         const { _id } = this.state;
         await deleteCarta({ _id });
-        toast.success("Carta deletada com sucesso.");
+        toast.success('Carta deletada com sucesso.');
         return this.setState({ ...stateDefault }, () => {
-          this.props.history.push("/lista-de-cartas");
+          this.props.history.push('/lista-de-cartas');
         });
       } catch (error) {
-        console.log("error", error);
+        console.log('error', error);
         this.setState({
           ...stateDefault
         });
@@ -169,6 +171,7 @@ class EditCards extends React.Component {
   };
 
   render() {
+    console.log(this.state);
     const { classes } = this.props;
     const isDisabled = this.validateForm();
     const { isFetching } = this.state;
@@ -177,13 +180,13 @@ class EditCards extends React.Component {
       handleChange: this.handleChange
     };
 
-    const hasInteressed = _get(this.state, "interessado.nome");
+    const hasInteressed = _get(this.state, 'interessado.nome');
     return (
       <GridContainer>
         <ToastContainer />
         <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="primary">
+            <CardHeader color='primary'>
               <h4 className={classes.cardTitleWhite}>
                 Editar carta contemplada
               </h4>
@@ -197,14 +200,14 @@ class EditCards extends React.Component {
                 <Button
                   onClick={this.handleUpdate}
                   disabled={isDisabled || isFetching}
-                  color="primary"
+                  color='primary'
                 >
                   Salvar alterações
                 </Button>
 
                 {hasInteressed && (
                   <Button
-                    color="warning"
+                    color='warning'
                     onClick={this.handleRemoveInteressado}
                     disabled={isFetching}
                   >
@@ -218,7 +221,7 @@ class EditCards extends React.Component {
               <Button
                 disabled={isFetching}
                 onClick={this.handleDelete}
-                color="danger"
+                color='danger'
               >
                 Excluir Carta
               </Button>

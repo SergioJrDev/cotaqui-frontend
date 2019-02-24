@@ -24,12 +24,15 @@ function HeaderLinks({ ...props }) {
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
-        <NavLink className={classes.navLink} to='/cartas-contempladas'>
+        <NavLink className={classes.navLink} to='/cartas-contempladas_/imoveis'>
           Comprar cotas de Imóveis
         </NavLink>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <NavLink className={classes.navLink} to='/cartas-contempladas'>
+        <NavLink
+          className={classes.navLink}
+          to='/cartas-contempladas_/veiculos'
+        >
           Comprar cotas de Veículos
         </NavLink>
       </ListItem>

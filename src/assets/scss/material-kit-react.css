@@ -997,3 +997,6 @@ button.slick-arrow.slick-next {
 
 .p-15 {
   padding: 15px; }
+
+.full-width_ > * {
+  width: 100%; }
