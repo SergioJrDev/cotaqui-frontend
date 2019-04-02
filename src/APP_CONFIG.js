@@ -1,7 +1,7 @@
 const CONFIG = {
   BACKEND: /localhost/.test(window.location.host)
     ? 'http://localhost:3001'
-    : 'http://cotaquionline-backend-com-br.umbler.net',
+    : 'https://cotaquionline-services-com-br.umbler.net/',
   ANALYTICS: '',
   EMAILID: 'user_tkDQCaq2YiASLCw3XjeQS',
   EMAILTEMPLATE: 'fee74eac0728a1bb5ff7d4666f8c4a88',
