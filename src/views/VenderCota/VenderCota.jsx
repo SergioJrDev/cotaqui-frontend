@@ -10,30 +10,30 @@ import Button from '@material-ui/core/Button';
 import InputMask from './../../utils/InputMask';
 import { createSale } from '../../services/parceiro';
 import CurrencyInput from '../../components/CurrencyInput/CurrencyInput';
-import moment from 'moment'
+import moment from 'moment';
 
 const stateDefault = {
   isSubmiting: false,
   isSuccess: false,
   venda: {
     type: 'IMOVEL',
-    administradora: 'Itau',
+    administradora: '',
     credito: 0,
     parcelasPendentes: 0,
     parcelasPagas: 0,
     valorDasParcelas: 0,
     valorPretendido: 0,
-    grupo: 'Grupo 1',
-    cota: 'Cota 1',
+    grupo: '',
+    cota: '',
     contemplado: '',
     entrada: 0,
     vencimento: '2020-01-01',
     responsavel: {
-      nome: 'Sérgio Júnior',
-      cpf: '411.494.038-37',
-      telefone: '(11) 2233-1122',
-      celular: '(11) 3344-6677',
-      email: 'sergioamjr91@gmail.com'
+      nome: '',
+      cpf: '',
+      telefone: '',
+      celular: '',
+      email: ''
     }
   }
 };
@@ -341,7 +341,10 @@ class VenderCota extends React.Component {
                               onChange={e => {
                                 this.handleChange({
                                   target: {
-                                    name: e.target.name, value: moment(e.target.value).utc().format('YYYY-MM-DD')
+                                    name: e.target.name,
+                                    value: moment(e.target.value)
+                                      .utc()
+                                      .format('YYYY-MM-DD')
                                   }
                                 });
                               }}

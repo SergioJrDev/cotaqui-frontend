@@ -71,9 +71,7 @@ class VendaList extends React.Component {
           <Card>
             <CardHeader color='primary'>
               <h4 className={classes.cardTitleWhite}>Lista de Vendas</h4>
-              <p className={classes.cardCategoryWhite}>
-                Listagem de parceiros interessados.
-              </p>
+              <p className={classes.cardCategoryWhite}>Listagem de vendas.</p>
             </CardHeader>
             <CardBody>
               {Object.values(results).length > 0 ? (
@@ -82,7 +80,7 @@ class VendaList extends React.Component {
                   rows={Object.values(results)}
                 />
               ) : (
-                <p className='a-center'>Nenhum parceiro ainda.</p>
+                <p className='a-center'>Nenhuma venda encontrada.</p>
               )}
             </CardBody>
           </Card>
