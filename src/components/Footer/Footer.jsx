@@ -28,38 +28,46 @@ function Footer({ ...props }) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/"
+                href="https://www.cotaquionline.com.br/#/"
                 className={classes.block}
-                target="_blank"
               >
-                Creative Tim
+                Início
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/presentation"
+                href="https://www.cotaquionline.com.br/#/cartas-contempladas_/imoveis"
                 className={classes.block}
-                target="_blank"
+                
               >
-                About us
+                Comprar Cota de Imóvel
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="http://blog.creative-tim.com/"
+                href="https://www.cotaquionline.com.br/#/cartas-contempladas_/veiculos"
                 className={classes.block}
-                target="_blank"
+                
               >
-                Blog
+                Comprar Cota de Veículos
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/license"
+                href="https://www.cotaquionline.com.br/#/seja-parceiro"
                 className={classes.block}
-                target="_blank"
+                
               >
-                Licenses
+                Seja Parceiro
+              </a>
+            </ListItem>
+       <ListItem className={classes.inlineBlock}>
+              <a
+                href="https://www.cotaquionline.com.br/#/vender-cota"
+                className={classes.block}
+                
+              >
+                Vender Cota
               </a>
             </ListItem>
           </List>

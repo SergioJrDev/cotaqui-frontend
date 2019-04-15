@@ -6,16 +6,10 @@ import GridItem from './../../components/Grid/GridItem.jsx';
 import GridContainer from './../../components/Grid/GridContainer.jsx';
 import Card from './../../components/Card/Card.jsx';
 import CardHeader from './../../components/Card/CardHeader.jsx';
-import moment from 'moment';
-import {
-  getSingleCartaWithDetails,
-  deleteCarta
-} from '../../../services/cartas';
 
 import { withRouter } from 'react-router';
 import Button from '../../components/CustomButtons/Button';
 import CardFooter from '../../components/Card/CardFooter';
-import _get from 'lodash/get';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import VendaForm from './VendaForm';
@@ -154,7 +148,6 @@ class VendaSingle extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const isDisabled = this.validateForm();
     const { isFetching } = this.state;
     const sharedPropsAndMethods = {
       ...this.state.data

@@ -41,6 +41,19 @@ class CartasForm extends React.Component {
       <div>
         <CardBody>
           <GridContainer>
+            {this.props.id && (
+
+ <GridItem xs={12} sm={12} md={12}>
+              <TextField
+                label='ID'
+                id='ID'
+                fullWidth
+                disabled
+                value={this.props.id.toUpperCase()}
+                className='input-space'
+              />
+            </GridItem>
+            )}
             <GridItem xs={12} sm={6} md={6}>
               <TextField
                 label='Administradora'

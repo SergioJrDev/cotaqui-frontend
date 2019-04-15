@@ -25,12 +25,12 @@ const styles = theme => ({
 
 const TableList = props => {
   const { rows, classes } = props;
-
   return (
     <div className={classes.root}>
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell>ID</TableCell>
             <TableCell>Administradora</TableCell>
             <TableCell>Crédito</TableCell>
             <TableCell>Entrada</TableCell>
@@ -45,6 +45,7 @@ const TableList = props => {
             const hasInterested = _get(row, "interessado.nome", false);
             return (
               <TableRow key={row._id}>
+                <TableCell>{row._id.toUpperCase().slice(row._id.length - 5, row._id.length)}</TableCell>
                 <TableCell>{row.administradora}</TableCell>
                 <TableCell>{formatAndDisplay(row.credito)}</TableCell>
                 <TableCell>{formatAndDisplay(row.entrada)}</TableCell>

@@ -7,7 +7,6 @@ import GridContainer from '../../components/Grid/GridContainer';
 import CardBody from '../../components/Card/CardBody';
 import TextField from '@material-ui/core/TextField';
 import CurrencyInput from '../../../components/CurrencyInput/CurrencyInput';
-import _get from 'lodash/get';
 import moment from 'moment';
 
 const styles = theme => ({

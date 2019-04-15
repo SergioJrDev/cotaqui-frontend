@@ -115,6 +115,11 @@ class SingleCota extends React.Component {
   };
 
   render() {
+    const {
+      match: {
+        params: { id }
+      }
+    } = this.props;
     const { classes } = this.props;
     const { interessado, wasReserved, isAlreadyReserved } = this.state;
     const { nome, email, telefone, celular } = interessado;
@@ -127,7 +132,7 @@ class SingleCota extends React.Component {
               <h1 className={classes.title}>Detalhes</h1>
               <GridContainer>
                 <GridItem xs={12} md={4}>
-                  <CartaDetails {...this.state} />
+                  <CartaDetails {...this.state} id={id.slice(id.length - 5, id.length)} />
                 </GridItem>
                 <GridItem xs={12} md={8}>
                   {isAlreadyReserved && (

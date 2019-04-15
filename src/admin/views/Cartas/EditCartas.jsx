@@ -82,14 +82,12 @@ class EditCards extends React.Component {
       try {
         const { result } = await getSingleCartaWithDetails(_id);
         const { vencimento } = result;
-        console.log(result);
         this.setState({
           ...result,
           vencimento: vencimento ? moment(vencimento).format('YYYY-MM-DD') : '',
           isFetching: false
         });
       } catch (error) {
-        console.log('error', error);
         this.setState({
           ...stateDefault
         });
@@ -100,12 +98,12 @@ class EditCards extends React.Component {
   handleUpdate = () => {
     this.setState({ isFetching: true }, async () => {
       try {
-        console.log('update', this.state);
+
         await updateCarta(this.state);
         toast.success('Carta atualizada com sucesso.');
         this.fetchCarta();
       } catch (error) {
-        console.log('error', error);
+
         this.setState({
           ...stateDefault
         });
@@ -123,7 +121,6 @@ class EditCards extends React.Component {
           this.props.history.push('/lista-de-cartas');
         });
       } catch (error) {
-        console.log('error', error);
         this.setState({
           ...stateDefault
         });
@@ -171,7 +168,11 @@ class EditCards extends React.Component {
   };
 
   render() {
-    console.log(this.state);
+const {
+      match: {
+        params: { _id }
+      }
+    } = this.props;
     const { classes } = this.props;
     const isDisabled = this.validateForm();
     const { isFetching } = this.state;
@@ -194,7 +195,7 @@ class EditCards extends React.Component {
                 Edite as informções da carta contemplada
               </p>
             </CardHeader>
-            <CartasForm {...sharedPropsAndMethods} />
+            <CartasForm {...sharedPropsAndMethods} id={_id.slice(_id.length - 5, _id.length)} />
             <CardFooter>
               <div>
                 <Button

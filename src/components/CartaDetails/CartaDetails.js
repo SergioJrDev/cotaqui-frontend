@@ -14,9 +14,18 @@ const CartaDetails = ({
   parcelas,
   valorDasParcelas,
   vencimento,
-  observacoes
+  observacoes,
+  id
 }) => (
   <div>
+  {id && (
+      <div style={borderBottom}>
+        <span>ID:</span>
+        <p>
+          <strong>{id.toUpperCase()}</strong>
+        </p>
+      </div>
+    )}
     {administradora && (
       <div style={borderBottom}>
         <span>Administradora:</span>
