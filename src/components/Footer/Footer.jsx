@@ -36,7 +36,16 @@ function Footer({ ...props }) {
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.cotaquionline.com.br/#/cartas-contempladas_/imoveis"
+                href="https://www.cotaquionline.com.br/#/cartas-contempladas/novas"
+                className={classes.block}
+                
+              >
+                Comprar Cota Nova
+              </a>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a
+                href="https://www.cotaquionline.com.br/#/cartas-contempladas/imoveis"
                 className={classes.block}
                 
               >
@@ -45,7 +54,7 @@ function Footer({ ...props }) {
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.cotaquionline.com.br/#/cartas-contempladas_/veiculos"
+                href="https://www.cotaquionline.com.br/#/cartas-contempladas/veiculos"
                 className={classes.block}
                 
               >

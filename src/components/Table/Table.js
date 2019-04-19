@@ -60,7 +60,7 @@ const TableData = props => {
                 </TableCell>
                 <TableCell>
                   {!hasInterested ? (
-                    <NavLink to={`/cartas-contempladas/${row._id}`}>
+                    <NavLink to={`/carta/${row._id}`}>
                       <Button variant="contained" color="primary">
                         Comprar
                       </Button>

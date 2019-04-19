@@ -9,6 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import CurrencyInput from '../../../components/CurrencyInput/CurrencyInput';
 import _get from 'lodash/get';
 import { Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const styles = theme => ({
   cardCategoryWhite: {
@@ -42,17 +44,16 @@ class CartasForm extends React.Component {
         <CardBody>
           <GridContainer>
             {this.props.id && (
-
- <GridItem xs={12} sm={12} md={12}>
-              <TextField
-                label='ID'
-                id='ID'
-                fullWidth
-                disabled
-                value={this.props.id.toUpperCase()}
-                className='input-space'
-              />
-            </GridItem>
+              <GridItem xs={12} sm={12} md={12}>
+                <TextField
+                  label='ID'
+                  id='ID'
+                  fullWidth
+                  disabled
+                  value={this.props.id.toUpperCase()}
+                  className='input-space'
+                />
+              </GridItem>
             )}
             <GridItem xs={12} sm={6} md={6}>
               <TextField
@@ -73,7 +74,6 @@ class CartasForm extends React.Component {
                     autoWidth={true}
                     value={this.props.type}
                     onChange={e => {
-                      console.log(e.target.value);
                       this.props.handleChange({
                         target: { value: e.target.value, name: 'type' }
                       });
@@ -171,6 +171,27 @@ class CartasForm extends React.Component {
                 className='input-space'
                 onChange={this.props.handleChange}
                 fullWidth
+              />
+            </GridItem>
+            <GridItem xs={12} sm={6} md={6}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.props.nova}
+                    onChange={e => {
+                      this.props.handleChange({
+                        target: {
+                          name: 'nova',
+                          value: e.target.checked
+                        }
+                      })
+                    }}
+                    id='nova'
+                    name='nova'
+                    disabled={!!hasInteressed}
+                  />
+                }
+                label='É nova?'
               />
             </GridItem>
           </GridContainer>

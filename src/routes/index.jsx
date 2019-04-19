@@ -24,9 +24,9 @@ const Routes = () => (
       <Route exact path='/' component={Home} />
       <Route exact path='/vender-cota' component={VenderCota} />
       <Route exact path='/seja-parceiro' component={Parceiro} />
-      <Route exact path='/cartas-contempladas/:id' component={SingleCotas} />
-      <Route exact path='/cartas-contempladas_/:status' component={Cartas} />
-      <Route exact path='/cartas-contempladas_/:status' component={Cartas} />
+      <Route exact path='/carta/:id' component={SingleCotas} />
+      <Route exact path='/cartas-contempladas/:status' component={Cartas} />
+      <Route exact path='/cartas-contempladas/:status' component={Cartas} />
       <Route
         exact
         path='/criar-carta'

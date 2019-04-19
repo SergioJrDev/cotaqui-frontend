@@ -82,7 +82,7 @@ class EditCards extends React.Component {
         const { vencimento } = result;
         this.setState({
           ...result,
-          vencimento: vencimento ? moment(vencimento).format("YYYY-MM-DD") : "",
+          vencimento: vencimento ? moment(vencimento).utc().format("YYYY-MM-DD") : "",
           isFetching: false
         });
       } catch (error) {

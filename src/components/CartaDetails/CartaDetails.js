@@ -78,7 +78,7 @@ const CartaDetails = ({
       <div>
         <span>Validade</span>
         <p>
-          <strong>{moment(vencimento).format("DD/MM/YYYY")}</strong>
+          <strong>{moment(vencimento).utc().format("DD/MM/YYYY")}</strong>
         </p>
       </div>
     )}

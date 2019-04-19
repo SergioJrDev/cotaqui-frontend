@@ -21,12 +21,22 @@ class AllCotas extends React.Component {
     } catch (error) {}
   };
 
+  filterResults = () => {
+const { results } = this.state;
+    const { status } = this.props.match.params;
+    const resultsMap = {
+      imoveis: results.filter(({ type, nova }) => type === 'IMOVEL' && !nova),
+      veiculos: results.filter(({ type, nova }) => type === 'CARRO' && !nova),
+      novas: results.filter(({ nova }) => nova),
+    }
+    return resultsMap[status] || results
+  }
+
   render() {
     const { classes } = this.props;
-    const { results } = this.state;
     const { status } = this.props.match.params;
-    const compare = status === 'imoveis' ? 'IMOVEL' : 'CARRO';
-    const resultsFiltered = results.filter(({ type }) => type === compare);
+   
+    const resultsFiltered = this.filterResults()
     return (
       <PageWrapper>
         <div>
@@ -34,9 +44,9 @@ class AllCotas extends React.Component {
             <div className={classes.container}>
               <GridContainer>
                 <GridItem xs={12}>
-                  <h1 className={classes.title}>Cartas contempladas</h1>
+                  <h1 className={classes.title}>Cartas {status === 'novas' ? 'Novas' : 'Contempladas'}</h1>
                   <p>
-                    Sessão de {status === 'imoveis' ? 'imóveis' : 'veículos'}{' '}
+                    Sessão de {status}
                   </p>
                   {resultsFiltered.length > 0 ? (
                     <Table rows={resultsFiltered} />
