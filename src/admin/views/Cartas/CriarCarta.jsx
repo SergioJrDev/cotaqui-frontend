@@ -1,35 +1,35 @@
-import React from 'react';
+import React from "react";
 // @material-ui/core components
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import GridItem from '../../components/Grid/GridItem';
-import GridContainer from '../../components/Grid/GridContainer';
-import Card from '../../components/Card/Card';
-import CardHeader from '../../components/Card/CardHeader';
-import moment from 'moment';
-import { submitCarta } from '../../../services/cartas';
-import CartasForm from './CartasForm';
-import Button from '../../components/CustomButtons/Button';
-import CardFooter from '../../components/Card/CardFooter';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import GridItem from "../../components/Grid/GridItem";
+import GridContainer from "../../components/Grid/GridContainer";
+import Card from "../../components/Card/Card";
+import CardHeader from "../../components/Card/CardHeader";
+import moment from "moment";
+import { submitCarta } from "../../../services/cartas";
+import CartasForm from "./CartasForm";
+import Button from "../../components/CustomButtons/Button";
+import CardFooter from "../../components/Card/CardFooter";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const styles = theme => ({
   cardCategoryWhite: {
-    color: 'rgba(255,255,255,.62)',
-    margin: '0',
-    fontSize: '14px',
-    marginTop: '0',
-    marginBottom: '0'
+    color: "rgba(255,255,255,.62)",
+    margin: "0",
+    fontSize: "14px",
+    marginTop: "0",
+    marginBottom: "0"
   },
   cardTitleWhite: {
-    color: '#FFFFFF',
-    marginTop: '0px',
-    minHeight: 'auto',
-    fontWeight: '300',
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: '3px',
-    textDecoration: 'none'
+    marginBottom: "3px",
+    textDecoration: "none"
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -40,15 +40,18 @@ const styles = theme => ({
 
 const stateDefault = {
   nova: false,
-  type: 'IMOVEL',
-  administradora: '',
-  credito: '',
-  entrada: '',
-  parcelas: '',
-  valorDasParcelas: '',
-  vencimento: moment(new Date()).format('YYYY-MM-DD'),
-  observacoes: '',
-  feitaPor: 'feitapor@gmail.com'
+  type: "IMOVEL",
+  administradora: "",
+  credito: "",
+  opcoesDeParcelas: [""],
+  entrada: "",
+  parcelas: "",
+  valorDasParcelas: "",
+  vencimento: moment(new Date())
+    .utc()
+    .format("YYYY-MM-DD"),
+  observacoes: "",
+  feitaPor: "feitapor@gmail.com"
 };
 
 class CriarCarta extends React.Component {
@@ -59,11 +62,9 @@ class CriarCarta extends React.Component {
   handleSubmit = async () => {
     try {
       await submitCarta(this.state);
-      toast.success('Carta criada com sucesso.');
+      toast.success("Carta criada com sucesso.");
       this.setState({ ...stateDefault });
-    } catch (error) {
-      console.log('error', error);
-    }
+    } catch (error) {}
   };
 
   handleChange = ({ target: { value, id, name } }) => {
@@ -95,12 +96,32 @@ class CriarCarta extends React.Component {
     this.props.history.goBack();
   };
 
+  handleChangeOpcoes = (event, key) => {
+    const {
+      target: { value }
+    } = event;
+    const { opcoesDeParcelas } = this.state;
+    opcoesDeParcelas[key] = value;
+    this.setState({
+      opcoesDeParcelas
+    });
+  };
+
+  addNewOpcao = () => {
+    const { opcoesDeParcelas } = this.state;
+    this.setState({
+      opcoesDeParcelas: opcoesDeParcelas.concat([""])
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const isDisabled = this.validateForm();
     const sharedPropsAndMethods = {
       ...this.state,
-      handleChange: this.handleChange
+      handleChange: this.handleChange,
+      handleChangeOpcoes: this.handleChangeOpcoes,
+      addNewOpcao: this.addNewOpcao
     };
     return (
       <div>
@@ -108,7 +129,7 @@ class CriarCarta extends React.Component {
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
-              <CardHeader color='primary'>
+              <CardHeader color="primary">
                 <h4 className={classes.cardTitleWhite}>
                   Criar carta contemplada
                 </h4>
@@ -121,7 +142,7 @@ class CriarCarta extends React.Component {
                 <Button
                   onClick={this.handleSubmit}
                   disabled={isDisabled}
-                  color='primary'
+                  color="primary"
                 >
                   Criar
                 </Button>

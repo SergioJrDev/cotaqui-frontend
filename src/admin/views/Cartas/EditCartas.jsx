@@ -1,41 +1,41 @@
-import React from 'react';
+import React from "react";
 // @material-ui/core components
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import GridItem from './../../components/Grid/GridItem.jsx';
-import GridContainer from './../../components/Grid/GridContainer.jsx';
-import Card from './../../components/Card/Card.jsx';
-import CardHeader from './../../components/Card/CardHeader.jsx';
-import moment from 'moment';
+import GridItem from "./../../components/Grid/GridItem.jsx";
+import GridContainer from "./../../components/Grid/GridContainer.jsx";
+import Card from "./../../components/Card/Card.jsx";
+import CardHeader from "./../../components/Card/CardHeader.jsx";
+import moment from "moment";
 import {
   getSingleCartaWithDetails,
   updateCarta,
   deleteCarta
-} from '../../../services/cartas';
-import CartasForm from './CartasForm';
-import { withRouter } from 'react-router';
-import Button from '../../components/CustomButtons/Button';
-import CardFooter from '../../components/Card/CardFooter';
-import _get from 'lodash/get';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+} from "../../../services/cartas";
+import CartasForm from "./CartasForm";
+import { withRouter } from "react-router";
+import Button from "../../components/CustomButtons/Button";
+import CardFooter from "../../components/Card/CardFooter";
+import _get from "lodash/get";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const styles = theme => ({
   cardCategoryWhite: {
-    color: 'rgba(255,255,255,.62)',
-    margin: '0',
-    fontSize: '14px',
-    marginTop: '0',
-    marginBottom: '0'
+    color: "rgba(255,255,255,.62)",
+    margin: "0",
+    fontSize: "14px",
+    marginTop: "0",
+    marginBottom: "0"
   },
   cardTitleWhite: {
-    color: '#FFFFFF',
-    marginTop: '0px',
-    minHeight: 'auto',
-    fontWeight: '300',
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: '3px',
-    textDecoration: 'none'
+    marginBottom: "3px",
+    textDecoration: "none"
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -46,15 +46,18 @@ const styles = theme => ({
 
 const stateDefault = {
   nova: false,
-  type: '',
-  administradora: '',
-  credito: '',
-  entrada: '',
-  parcelas: '',
-  valorDasParcelas: '',
-  vencimento: moment(new Date()).format('YYYY-MM-DD'),
-  observacoes: '',
-  feitaPor: 'feitapor@gmail.com',
+  type: "",
+  administradora: "",
+  opcoesDeParcelas: [""],
+  credito: "",
+  entrada: "",
+  parcelas: "",
+  valorDasParcelas: "",
+  vencimento: moment(new Date())
+    .utc()
+    .format("YYYY-MM-DD"),
+  observacoes: "",
+  feitaPor: "feitapor@gmail.com",
   isFetching: false
 };
 
@@ -85,7 +88,11 @@ class EditCards extends React.Component {
         const { vencimento } = result;
         this.setState({
           ...result,
-          vencimento: vencimento ? moment(vencimento).utc().format('YYYY-MM-DD') : '',
+          vencimento: vencimento
+            ? moment(vencimento)
+                .utc()
+                .format("YYYY-MM-DD")
+            : "",
           isFetching: false
         });
       } catch (error) {
@@ -99,12 +106,10 @@ class EditCards extends React.Component {
   handleUpdate = () => {
     this.setState({ isFetching: true }, async () => {
       try {
-
         await updateCarta(this.state);
-        toast.success('Carta atualizada com sucesso.');
+        toast.success("Carta atualizada com sucesso.");
         this.fetchCarta();
       } catch (error) {
-
         this.setState({
           ...stateDefault
         });
@@ -117,9 +122,9 @@ class EditCards extends React.Component {
       try {
         const { _id } = this.state;
         await deleteCarta({ _id });
-        toast.success('Carta deletada com sucesso.');
+        toast.success("Carta deletada com sucesso.");
         return this.setState({ ...stateDefault }, () => {
-          this.props.history.push('/lista-de-cartas');
+          this.props.history.push("/lista-de-cartas");
         });
       } catch (error) {
         this.setState({
@@ -142,6 +147,24 @@ class EditCards extends React.Component {
       },
       this.handleUpdate
     );
+  };
+
+  handleChangeOpcoes = (event, key) => {
+    const {
+      target: { value }
+    } = event;
+    const { opcoesDeParcelas } = this.state;
+    opcoesDeParcelas[key] = value;
+    this.setState({
+      opcoesDeParcelas
+    });
+  };
+
+  addNewOpcao = () => {
+    const { opcoesDeParcelas } = this.state;
+    this.setState({
+      opcoesDeParcelas: opcoesDeParcelas.concat([""])
+    });
   };
 
   validateForm = () => {
@@ -169,7 +192,7 @@ class EditCards extends React.Component {
   };
 
   render() {
-const {
+    const {
       match: {
         params: { _id }
       }
@@ -179,16 +202,18 @@ const {
     const { isFetching } = this.state;
     const sharedPropsAndMethods = {
       ...this.state,
-      handleChange: this.handleChange
+      handleChange: this.handleChange,
+      handleChangeOpcoes: this.handleChangeOpcoes,
+      addNewOpcao: this.addNewOpcao
     };
 
-    const hasInteressed = _get(this.state, 'interessado.nome');
+    const hasInteressed = _get(this.state, "interessado.nome");
     return (
       <GridContainer>
         <ToastContainer />
         <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color='primary'>
+            <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>
                 Editar carta contemplada
               </h4>
@@ -196,20 +221,23 @@ const {
                 Edite as informções da carta contemplada
               </p>
             </CardHeader>
-            <CartasForm {...sharedPropsAndMethods} id={_id.slice(_id.length - 5, _id.length)} />
+            <CartasForm
+              {...sharedPropsAndMethods}
+              id={_id.slice(_id.length - 5, _id.length)}
+            />
             <CardFooter>
               <div>
                 <Button
                   onClick={this.handleUpdate}
                   disabled={isDisabled || isFetching}
-                  color='primary'
+                  color="primary"
                 >
                   Salvar alterações
                 </Button>
 
                 {hasInteressed && (
                   <Button
-                    color='warning'
+                    color="warning"
                     onClick={this.handleRemoveInteressado}
                     disabled={isFetching}
                   >
@@ -223,7 +251,7 @@ const {
               <Button
                 disabled={isFetching}
                 onClick={this.handleDelete}
-                color='danger'
+                color="danger"
               >
                 Excluir Carta
               </Button>
