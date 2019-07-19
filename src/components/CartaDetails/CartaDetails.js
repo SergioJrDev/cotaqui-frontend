@@ -15,10 +15,11 @@ const CartaDetails = ({
   valorDasParcelas,
   vencimento,
   observacoes,
-  id
+  id,
+  opcoesDeParcelas
 }) => (
   <div>
-  {id && (
+    {id && (
       <div style={borderBottom}>
         <span>ID:</span>
         <p>
@@ -66,6 +67,15 @@ const CartaDetails = ({
         </p>
       </div>
     )}
+    {opcoesDeParcelas &&
+      opcoesDeParcelas.map((parcela, index) => (
+        <div key={index} style={borderBottom}>
+          <span>Outras Parcelas</span>
+          <p>
+            <strong>{parcela}</strong>
+          </p>
+        </div>
+      ))}
     {observacoes && (
       <div style={borderBottom}>
         <span>Observações</span>
@@ -78,7 +88,11 @@ const CartaDetails = ({
       <div>
         <span>Validade</span>
         <p>
-          <strong>{moment(vencimento).utc().format("DD/MM/YYYY")}</strong>
+          <strong>
+            {moment(vencimento)
+              .utc()
+              .format("DD/MM/YYYY")}
+          </strong>
         </p>
       </div>
     )}
