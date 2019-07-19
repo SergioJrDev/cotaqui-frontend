@@ -177,18 +177,30 @@ class CartasForm extends React.Component {
             <GridItem xs={12} sm={6} md={6}>
               {(this.props.opcoesDeParcelas || []).map((value, index) => {
                 return (
-                  <TextField
+                  <div
                     key={index}
-                    label="Nova Parcela"
-                    id="opcoesDeParcelas"
-                    fullWidth
-                    disabled={!!hasInteressed}
-                    value={value}
-                    className="input-space"
-                    onChange={value =>
-                      this.props.handleChangeOpcoes(value, index)
-                    }
-                  />
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <TextField
+                      label="Nova Parcela"
+                      id="opcoesDeParcelas"
+                      fullWidth
+                      disabled={!!hasInteressed}
+                      value={value}
+                      className="input-space"
+                      onChange={value =>
+                        this.props.handleChangeOpcoes(value, index)
+                      }
+                    />
+                    {!hasInteressed && (
+                      <Button
+                        style={{ marginLeft: "10px" }}
+                        onClick={() => this.props.removeNewOpcao(index)}
+                      >
+                        Remover
+                      </Button>
+                    )}
+                  </div>
                 );
               })}
               {!hasInteressed && (

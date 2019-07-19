@@ -1,4 +1,5 @@
 import React from "react";
+import TextField from "@material-ui/core/TextField";
 import GridItem from "./../../components/Grid/GridItem.jsx";
 import GridContainer from "./../../components/Grid/GridContainer.jsx";
 import Card from "./../../components/Card/Card.jsx";
@@ -35,6 +36,7 @@ const styles = theme => ({
 const stateDefault = {
   isFetching: false,
   results: [],
+  search: "",
   hasFailed: false
 };
 
@@ -50,15 +52,27 @@ class ListaDeCartas extends React.Component {
         const { response } = await getAllCartas();
         this.setState({ isFetching: false, results: response });
       } catch (error) {
-        console.log("error", error);
         this.setState({ isFetching: false, hasFailed: true });
       }
     });
   };
 
+  onChangeSearch = ({ target: { value } }) => {
+    this.setState({
+      search: value
+    });
+  };
+
   render() {
     const { classes } = this.props;
-    const { results } = this.state;
+    const { results, search } = this.state;
+    const resultsFiltered = search
+      ? Object.values(results).filter(result => {
+          const resultsString = JSON.stringify(result).toLowerCase();
+          return resultsString.includes(search.toLowerCase());
+        })
+      : results;
+
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
@@ -71,7 +85,21 @@ class ListaDeCartas extends React.Component {
             </CardHeader>
             <CardBody>
               {Object.values(results).length > 0 ? (
-                <TableList rows={Object.values(results)} />
+                <div>
+                  <TextField
+                    label="Filtrar"
+                    id="ID"
+                    onChange={this.onChangeSearch}
+                    fullWidth
+                    value={this.state.search}
+                    className="input-space"
+                  />
+                  {Object.values(resultsFiltered).length > 0 ? (
+                    <TableList rows={Object.values(resultsFiltered)} />
+                  ) : (
+                    <p>Nenhuma carta encontrada.</p>
+                  )}
+                </div>
               ) : (
                 <p className="a-center">Nenhuma carta cadastrada ainda.</p>
               )}

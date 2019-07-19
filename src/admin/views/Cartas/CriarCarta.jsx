@@ -114,6 +114,13 @@ class CriarCarta extends React.Component {
     });
   };
 
+  removeNewOpcao = key => {
+    const { opcoesDeParcelas } = this.state;
+    this.setState({
+      opcoesDeParcelas: opcoesDeParcelas.filter((o, index) => key !== index)
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const isDisabled = this.validateForm();
@@ -121,7 +128,8 @@ class CriarCarta extends React.Component {
       ...this.state,
       handleChange: this.handleChange,
       handleChangeOpcoes: this.handleChangeOpcoes,
-      addNewOpcao: this.addNewOpcao
+      addNewOpcao: this.addNewOpcao,
+      removeNewOpcao: this.removeNewOpcao
     };
     return (
       <div>
@@ -146,7 +154,7 @@ class CriarCarta extends React.Component {
                 >
                   Criar
                 </Button>
-                <Button onClick={this.onBackHandler}>Cancelar</Button>
+                <Button onClick={this.onBackHandler}>Voltar</Button>
               </CardFooter>
             </Card>
           </GridItem>

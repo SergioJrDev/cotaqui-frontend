@@ -25,6 +25,26 @@ const styles = theme => ({
 
 const TableList = props => {
   const { rows, classes } = props;
+  const rowsSorted = rows
+    .sort((a, b) => {
+      if (a.administradora < b.administradora) {
+        return -1;
+      }
+      if (a.administradora > b.administradora) {
+        return 1;
+      }
+      return 0;
+    })
+    .sort((a, b) => {
+      if (a.credito < b.credito) {
+        return -1;
+      }
+      if (a.credito > b.credito) {
+        return 1;
+      }
+      return 0;
+    });
+
   return (
     <div className={classes.root}>
       <Table>
@@ -41,11 +61,15 @@ const TableList = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => {
+          {rowsSorted.map(row => {
             const hasInterested = _get(row, "interessado.nome", false);
             return (
               <TableRow key={row._id}>
-                <TableCell>{row._id.toUpperCase().slice(row._id.length - 5, row._id.length)}</TableCell>
+                <TableCell>
+                  {row._id
+                    .toUpperCase()
+                    .slice(row._id.length - 5, row._id.length)}
+                </TableCell>
                 <TableCell>{row.administradora}</TableCell>
                 <TableCell>{formatAndDisplay(row.credito)}</TableCell>
                 <TableCell>{formatAndDisplay(row.entrada)}</TableCell>

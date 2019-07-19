@@ -167,6 +167,13 @@ class EditCards extends React.Component {
     });
   };
 
+  removeNewOpcao = key => {
+    const { opcoesDeParcelas } = this.state;
+    this.setState({
+      opcoesDeParcelas: opcoesDeParcelas.filter((o, index) => key !== index)
+    });
+  };
+
   validateForm = () => {
     const {
       administradora,
@@ -204,7 +211,8 @@ class EditCards extends React.Component {
       ...this.state,
       handleChange: this.handleChange,
       handleChangeOpcoes: this.handleChangeOpcoes,
-      addNewOpcao: this.addNewOpcao
+      addNewOpcao: this.addNewOpcao,
+      removeNewOpcao: this.removeNewOpcao
     };
 
     const hasInteressed = _get(this.state, "interessado.nome");
@@ -245,7 +253,7 @@ class EditCards extends React.Component {
                   </Button>
                 )}
                 <Button onClick={this.onBackHandler} disabled={isFetching}>
-                  Cancelar
+                  Voltar
                 </Button>
               </div>
               <Button
